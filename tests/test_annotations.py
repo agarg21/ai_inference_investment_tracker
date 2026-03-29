@@ -4,8 +4,8 @@ import csv
 
 import pandas as pd
 
-from ai_power_validation.annotations import normalize_trade_date, persist_events, prepare_event_records
-from ai_power_validation.db import get_connection
+from ai_inference_tracker.annotations import normalize_trade_date, persist_events, prepare_event_records
+from ai_inference_tracker.db import get_connection
 
 
 def test_prepare_events_and_round_trip_into_db(settings):

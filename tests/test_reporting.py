@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from ai_power_validation.reporting import build_historical_setup_summary, build_recommendation_book, build_trading_spec
+from ai_inference_tracker.reporting import build_historical_setup_summary, build_recommendation_book, build_trading_spec
 
 
 def test_trading_spec_prefers_non_low_variants_and_exports_supporting_files(settings):

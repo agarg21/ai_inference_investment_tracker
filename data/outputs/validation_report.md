@@ -1,4 +1,4 @@
-# AI Power Bottleneck Validation Report
+# AI Inference Investment Validation Report
 
 ## Summary
 
@@ -11,12 +11,12 @@
 
 ## Charts
 
-- Corpus by event type: `/Users/apoorvagarg/Documents/Playground/ai_power_validation/data/charts/corpus_by_event_type.png`
-- Corpus by issuer: `/Users/apoorvagarg/Documents/Playground/ai_power_validation/data/charts/corpus_by_issuer.png`
-- Trading spec: `/Users/apoorvagarg/Documents/Playground/ai_power_validation/data/outputs/trading_spec.md`
-- Issuer summary: `/Users/apoorvagarg/Documents/Playground/ai_power_validation/data/outputs/issuer_signal_summary.csv`
-- Historical setups: `/Users/apoorvagarg/Documents/Playground/ai_power_validation/data/outputs/historical_setups.csv`
-- Recommendation book: `/Users/apoorvagarg/Documents/Playground/ai_power_validation/data/outputs/recommendation_book.csv`
+- Corpus by event type: `/Users/apoorvagarg/Documents/Playground/ai_inference_investment_tracker/data/charts/corpus_by_event_type.png`
+- Corpus by issuer: `/Users/apoorvagarg/Documents/Playground/ai_inference_investment_tracker/data/charts/corpus_by_issuer.png`
+- Trading spec: `/Users/apoorvagarg/Documents/Playground/ai_inference_investment_tracker/data/outputs/trading_spec.md`
+- Issuer summary: `/Users/apoorvagarg/Documents/Playground/ai_inference_investment_tracker/data/outputs/issuer_signal_summary.csv`
+- Historical setups: `/Users/apoorvagarg/Documents/Playground/ai_inference_investment_tracker/data/outputs/historical_setups.csv`
+- Recommendation book: `/Users/apoorvagarg/Documents/Playground/ai_inference_investment_tracker/data/outputs/recommendation_book.csv`
 
 ## Strongest Buckets
 

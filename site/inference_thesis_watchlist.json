@@ -402,5 +402,34 @@
       "evidence_to_watch": "New data-center tariffs, contracted-load updates, PJM awards and utility IR disclosures.",
       "falsifier": "New events stop showing positive post-disclosure abnormal returns versus XLU."
     }
+  ],
+  "history": [
+    {
+      "date": "2026-03-29",
+      "title": "Refocused around inference",
+      "summary": "The research base moved from a narrower utility-event lens to the broader AI inference inflection thesis anchored in Jensen Huang's comments, hyperscaler capex, and GTC 2026 messaging.",
+      "changes": [
+        "Promoted power, cooling, networking, memory, and cloud inference platforms to the core stack.",
+        "Reframed utilities and transmission as a second-order expression instead of the whole thesis."
+      ]
+    },
+    {
+      "date": "2026-03-29",
+      "title": "Sharpened the public-market shortlist",
+      "summary": "The watchlist now favors companies that either monetize inference directly or provide the physical systems required to serve it at scale.",
+      "changes": [
+        "Core shortlist centered on VRT, ETN, NVDA, AMZN, GOOGL, MSFT, AVGO, and MU.",
+        "Second-order names CEG, GEV, and FE remain tactical rather than core thesis expressions."
+      ]
+    },
+    {
+      "date": "2026-03-29",
+      "title": "Started a trackable prediction framework",
+      "summary": "Predictions now capture what would confirm or falsify the thesis so daily updates can change the research only when new evidence warrants it.",
+      "changes": [
+        "Added explicit open predictions around capex, infrastructure winners, networking and memory bottlenecks, and utility-event tradability.",
+        "Prepared the site for daily summaries and visible research-history updates."
+      ]
+    }
   ]
 }

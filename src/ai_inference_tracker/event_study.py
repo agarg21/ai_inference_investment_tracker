@@ -4,18 +4,27 @@ from datetime import date
 
 import pandas as pd
 
-from ai_power_validation.annotations import ensure_annotation_template, load_annotation_rows, persist_events, prepare_event_records
-from ai_power_validation.config import Settings
-from ai_power_validation.constants import FORWARD_HORIZONS
-from ai_power_validation.db import get_connection, init_db
-from ai_power_validation.prices import fetch_price_history
-from ai_power_validation.strategy import build_strategy_windows
+from ai_inference_tracker.annotations import ensure_annotation_template, load_annotation_rows, persist_events, prepare_event_records
+from ai_inference_tracker.config import Settings
+from ai_inference_tracker.constants import FORWARD_HORIZONS
+from ai_inference_tracker.db import get_connection, init_db
+from ai_inference_tracker.prices import fetch_price_history
+from ai_inference_tracker.strategy import build_strategy_windows
 
 
 def load_source_documents(settings: Settings) -> pd.DataFrame:
     init_db(settings)
     with get_connection(settings) as connection:
-        return pd.read_sql_query("SELECT * FROM source_documents ORDER BY publish_timestamp DESC", connection)
+        source_documents = pd.read_sql_query("SELECT * FROM source_documents ORDER BY publish_timestamp DESC", connection)
+    if not source_documents.empty:
+        return source_documents
+
+    source_csv = settings.outputs_dir / "source_documents.csv"
+    if source_csv.exists():
+        fallback_documents = pd.read_csv(source_csv)
+        if not fallback_documents.empty:
+            return fallback_documents
+    return source_documents
 
 
 def compute_price_windows(events_df: pd.DataFrame, prices_df: pd.DataFrame) -> pd.DataFrame:

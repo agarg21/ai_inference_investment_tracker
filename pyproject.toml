@@ -3,9 +3,9 @@ requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ai-power-validation"
+name = "ai-inference-investment-tracker"
 version = "0.1.0"
-description = "Validation kit for AI power bottleneck trading signals."
+description = "Local-first research and validation toolkit for the AI inference investment thesis."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -24,10 +24,10 @@ dev = [
 ]
 
 [project.scripts]
-collect_sources = "ai_power_validation.cli:collect_sources_main"
-run_event_study = "ai_power_validation.cli:run_event_study_main"
-build_report = "ai_power_validation.cli:build_report_main"
-build_inference_tracker = "ai_power_validation.cli:build_inference_tracker_main"
+collect_sources = "ai_inference_tracker.cli:collect_sources_main"
+run_event_study = "ai_inference_tracker.cli:run_event_study_main"
+build_report = "ai_inference_tracker.cli:build_report_main"
+build_inference_tracker = "ai_inference_tracker.cli:build_inference_tracker_main"
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
@@ -40,7 +40,7 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 [tool.setuptools.package-data]
-ai_power_validation = ["schema.sql"]
+ai_inference_tracker = ["schema.sql"]
 
 [tool.uv]
 package = true

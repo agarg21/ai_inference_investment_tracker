@@ -9,8 +9,8 @@ from typing import Iterable
 
 import pandas as pd
 
-from ai_power_validation.constants import ANNOTATION_FIELDS, EVENT_TYPES, ISSUER_BY_TICKER, PRIMARY_TICKERS, SIGNAL_VARIANTS
-from ai_power_validation.db import get_connection, init_db
+from ai_inference_tracker.constants import ANNOTATION_FIELDS, EVENT_TYPES, ISSUER_BY_TICKER, PRIMARY_TICKERS, SIGNAL_VARIANTS
+from ai_inference_tracker.db import get_connection, init_db
 
 
 @dataclass(frozen=True)

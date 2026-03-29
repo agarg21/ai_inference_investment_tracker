@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from ai_power_validation.event_study import build_trade_cards, compute_price_windows
+from ai_inference_tracker.event_study import build_trade_cards, compute_price_windows
 
 
 def test_event_study_handles_weekends_and_benchmarks():

@@ -4,8 +4,8 @@ import argparse
 from datetime import date
 from pathlib import Path
 
-from ai_power_validation.annotations import ensure_annotation_template
-from ai_power_validation.collectors import (
+from ai_inference_tracker.annotations import ensure_annotation_template
+from ai_inference_tracker.collectors import (
     build_session,
     collect_sec_documents,
     collect_seed_documents,
@@ -15,15 +15,15 @@ from ai_power_validation.collectors import (
     prune_source_documents,
     store_source_documents,
 )
-from ai_power_validation.config import load_settings
-from ai_power_validation.constants import ISSUER_SEED_DOCUMENTS
-from ai_power_validation.event_study import run_event_study
-from ai_power_validation.inference_tracker import build_inference_tracker
-from ai_power_validation.reporting import build_report
+from ai_inference_tracker.config import load_settings
+from ai_inference_tracker.constants import ISSUER_SEED_DOCUMENTS
+from ai_inference_tracker.event_study import run_event_study
+from ai_inference_tracker.inference_tracker import build_inference_tracker
+from ai_inference_tracker.reporting import build_report
 
 
 def _parse_args() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="AI power bottleneck validation kit")
+    parser = argparse.ArgumentParser(description="AI inference investment research toolkit")
     parser.add_argument("--mode", choices=["full", "targeted-readable"], default="full")
     parser.add_argument("--start-date", default="2024-01-01")
     parser.add_argument("--end-date", default=date.today().isoformat())

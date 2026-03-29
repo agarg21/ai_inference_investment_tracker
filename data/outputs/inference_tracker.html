@@ -55,6 +55,11 @@
     .areas {
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     }
+    .snapshot-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      margin-top: 18px;
+    }
+    .snapshot-card,
     .card {
       background: var(--paper);
       border: 1px solid var(--line);
@@ -62,6 +67,7 @@
       padding: 20px;
       box-shadow: var(--shadow);
     }
+    .snapshot-card h3,
     .card h3 { margin-top: 6px; margin-bottom: 10px; }
     .card h4 { margin-bottom: 8px; }
     .subgrid {
@@ -96,13 +102,15 @@
     .prediction {
       border-left: 6px solid var(--accent);
     }
+    .history-card ul,
+    .card ul {
+      padding-left: 18px;
+    }
     @media (max-width: 720px) {
       .hero h1 { font-size: 1.8rem; }
       table, thead, tbody, th, td, tr { display: block; }
       thead { display: none; }
-      td {
-        padding: 10px 12px;
-      }
+      td { padding: 10px 12px; }
     }
   </style>
 </head>
@@ -114,6 +122,31 @@
       <p>The core thesis is that AI inference is moving from a sidecar workload to the dominant compute and capex driver. The best risk-adjusted expressions are the infrastructure layers that make inference possible at scale: power, cooling, networking, memory, advanced packaging, and the platforms that monetize inference demand directly.</p>
       <p><strong>Last updated:</strong> 2026-03-29</p>
       <p><strong>Current stance:</strong> Bullish on infrastructure and systems; selective on direct app-layer beneficiaries.</p>
+      <section class="grid snapshot-grid">
+            <section class="snapshot-card">
+              <div class="eyebrow">Dashboard Snapshot</div>
+              <h3>Current Focus</h3>
+              <p>Power, Cooling and Electrical Infrastructure, Inference Platforms and Accelerated Compute, Networking, Fabrics and Optics</p>
+            </section>
+            
+            <section class="snapshot-card">
+              <div class="eyebrow">Dashboard Snapshot</div>
+              <h3>High-Conviction Names</h3>
+              <p>VRT, ETN, NVDA, AMZN, GOOGL</p>
+            </section>
+            
+            <section class="snapshot-card">
+              <div class="eyebrow">Dashboard Snapshot</div>
+              <h3>Open Predictions</h3>
+              <p>4</p>
+            </section>
+            
+            <section class="snapshot-card">
+              <div class="eyebrow">Dashboard Snapshot</div>
+              <h3>Shortlist Mix</h3>
+              <p>core 9, second_order 3</p>
+            </section>
+            </section>
     </section>
 
     <h2 class="section-title">Top-Level Sources</h2>
@@ -324,6 +357,30 @@
               <p>AI-related utility backlog, load-contract and transmission-approval events will continue to create medium-horizon trading setups.</p>
               <p><strong>Evidence to watch:</strong> New data-center tariffs, contracted-load updates, PJM awards and utility IR disclosures.</p>
               <p><strong>How it could fail:</strong> New events stop showing positive post-disclosure abnormal returns versus XLU.</p>
+            </section>
+            </section>
+
+    <h2 class="section-title">Research History</h2>
+    <section class="grid">
+            <section class="card history-card">
+              <div class="eyebrow">2026-03-29</div>
+              <h3>Refocused around inference</h3>
+              <p>The research base moved from a narrower utility-event lens to the broader AI inference inflection thesis anchored in Jensen Huang&#x27;s comments, hyperscaler capex, and GTC 2026 messaging.</p>
+              <ul><li>Promoted power, cooling, networking, memory, and cloud inference platforms to the core stack.</li><li>Reframed utilities and transmission as a second-order expression instead of the whole thesis.</li></ul>
+            </section>
+            
+            <section class="card history-card">
+              <div class="eyebrow">2026-03-29</div>
+              <h3>Sharpened the public-market shortlist</h3>
+              <p>The watchlist now favors companies that either monetize inference directly or provide the physical systems required to serve it at scale.</p>
+              <ul><li>Core shortlist centered on VRT, ETN, NVDA, AMZN, GOOGL, MSFT, AVGO, and MU.</li><li>Second-order names CEG, GEV, and FE remain tactical rather than core thesis expressions.</li></ul>
+            </section>
+            
+            <section class="card history-card">
+              <div class="eyebrow">2026-03-29</div>
+              <h3>Started a trackable prediction framework</h3>
+              <p>Predictions now capture what would confirm or falsify the thesis so daily updates can change the research only when new evidence warrants it.</p>
+              <ul><li>Added explicit open predictions around capex, infrastructure winners, networking and memory bottlenecks, and utility-event tradability.</li><li>Prepared the site for daily summaries and visible research-history updates.</li></ul>
             </section>
             </section>
   </main>

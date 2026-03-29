@@ -5,10 +5,10 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from ai_power_validation.config import Settings
-from ai_power_validation.constants import SIGNAL_TIER_BY_VARIANT
-from ai_power_validation.db import get_connection, init_db
-from ai_power_validation.strategy import build_strategy_windows
+from ai_inference_tracker.config import Settings
+from ai_inference_tracker.constants import SIGNAL_TIER_BY_VARIANT
+from ai_inference_tracker.db import get_connection, init_db
+from ai_inference_tracker.strategy import build_strategy_windows
 
 
 def _save_chart(series: pd.Series, path: Path, title: str, xlabel: str) -> None:
@@ -412,7 +412,7 @@ def build_trading_spec(settings: Settings, events_df: pd.DataFrame, price_window
     avoid_recommendations = recommendation_book[recommendation_book["confidence"] == "avoid"].head(5)
 
     lines = [
-        "# AI Power Bottleneck Trading Spec",
+        "# AI Inference Investment Trading Spec",
         "",
         "## Core Rule",
         "",
@@ -656,7 +656,7 @@ def build_report(settings: Settings) -> Path:
         conclusion = "no validated signal in v1 scope"
 
     report_lines = [
-        "# AI Power Bottleneck Validation Report",
+        "# AI Inference Investment Validation Report",
         "",
         "## Summary",
         "",

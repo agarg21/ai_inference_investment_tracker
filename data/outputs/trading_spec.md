@@ -1,4 +1,4 @@
-# AI Power Bottleneck Trading Spec
+# AI Inference Investment Trading Spec
 
 ## Core Rule
 

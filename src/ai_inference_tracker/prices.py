@@ -5,7 +5,7 @@ from datetime import date, timedelta
 import pandas as pd
 import yfinance as yf
 
-from ai_power_validation.constants import BENCHMARK_TICKERS, PRIMARY_TICKERS
+from ai_inference_tracker.constants import BENCHMARK_TICKERS, PRIMARY_TICKERS
 
 
 def fetch_price_history(start_date: date, end_date: date) -> pd.DataFrame:

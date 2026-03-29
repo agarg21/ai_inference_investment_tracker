@@ -4,8 +4,8 @@ from pathlib import Path
 
 import pytest
 
-from ai_power_validation.config import Settings
-from ai_power_validation.db import init_db
+from ai_inference_tracker.config import Settings
+from ai_inference_tracker.db import init_db
 
 
 @pytest.fixture()
@@ -18,7 +18,7 @@ def settings(tmp_path: Path) -> Settings:
         path.mkdir(parents=True, exist_ok=True)
 
     settings = Settings(
-        root_dir=Path(__file__).resolve().parents[1],
+        root_dir=tmp_path,
         data_dir=data_dir,
         outputs_dir=outputs_dir,
         snapshots_dir=snapshots_dir,

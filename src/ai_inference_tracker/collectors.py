@@ -15,9 +15,9 @@ import requests
 from bs4 import BeautifulSoup
 from pypdf import PdfReader
 
-from ai_power_validation.config import Settings
-from ai_power_validation.constants import ISSUERS, SEC_FORMS, SEC_FORM_LIMITS, SEED_DOCUMENTS, SOURCE_KEYWORDS, TARGETED_READABLE_SEEDS
-from ai_power_validation.db import get_connection, init_db
+from ai_inference_tracker.config import Settings
+from ai_inference_tracker.constants import ISSUERS, SEC_FORMS, SEC_FORM_LIMITS, SEED_DOCUMENTS, SOURCE_KEYWORDS, TARGETED_READABLE_SEEDS
+from ai_inference_tracker.db import get_connection, init_db
 
 PDF_TEXT_PAGE_LIMIT = 15
 
@@ -176,7 +176,7 @@ def collect_sec_documents(
         response = session.get(submissions_url, timeout=30)
         response.raise_for_status()
         payload = response.json()
-        payload["_user_agent"] = session.headers.get("User-Agent", "ai-power-validation/0.1")
+        payload["_user_agent"] = session.headers.get("User-Agent", "ai-inference-investment-tracker/0.1")
 
         for filing in _iter_sec_filing_records(session, payload):
             form = filing.get("form")

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 
-from ai_power_validation.inference_tracker import build_inference_tracker
+from ai_inference_tracker.inference_tracker import build_inference_tracker
 
 
 def test_build_inference_tracker_writes_html_and_markdown(settings):
@@ -50,6 +50,14 @@ def test_build_inference_tracker_writes_html_and_markdown(settings):
                         "evidence_to_watch": "Orders and margins.",
                         "falsifier": "Orders weaken."
                     }
+                ],
+                "history": [
+                    {
+                        "date": "2026-03-29",
+                        "title": "Initial thesis",
+                        "summary": "We started the tracker around infrastructure bottlenecks.",
+                        "changes": ["Promoted power as the first area to watch."]
+                    }
                 ]
             }
         )
@@ -62,4 +70,7 @@ def test_build_inference_tracker_writes_html_and_markdown(settings):
     assert (settings.root_dir / "site" / "index.html").exists()
     assert (settings.root_dir / "site" / "tracker.md").exists()
     assert "Inference Tracker" in html_path.read_text()
+    assert "Dashboard Snapshot" in html_path.read_text()
+    assert "Research History" in html_path.read_text()
     assert "Power wins" in md_path.read_text()
+    assert "Initial thesis" in md_path.read_text()

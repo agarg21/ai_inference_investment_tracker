@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from ai_power_validation.strategy import build_strategy_windows
+from ai_inference_tracker.strategy import build_strategy_windows
 
 
 def test_strategy_windows_dedupes_same_issuer_day_to_highest_priority_signal():

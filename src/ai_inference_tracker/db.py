@@ -6,7 +6,7 @@ from importlib import resources
 from pathlib import Path
 from typing import Iterator
 
-from ai_power_validation.config import Settings
+from ai_inference_tracker.config import Settings
 
 
 def connect(database_path: Path) -> sqlite3.Connection:
@@ -17,7 +17,7 @@ def connect(database_path: Path) -> sqlite3.Connection:
 
 
 def init_db(settings: Settings) -> None:
-    schema = resources.files("ai_power_validation").joinpath("schema.sql").read_text()
+    schema = resources.files("ai_inference_tracker").joinpath("schema.sql").read_text()
     with connect(settings.database_path) as connection:
         connection.executescript(schema)
         columns = {row["name"] for row in connection.execute("PRAGMA table_info(source_documents)").fetchall()}

@@ -3,7 +3,7 @@ revision = 1
 requires-python = ">=3.12"
 
 [[package]]
-name = "ai-power-validation"
+name = "ai-inference-investment-tracker"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

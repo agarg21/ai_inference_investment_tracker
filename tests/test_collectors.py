@@ -2,14 +2,14 @@ from __future__ import annotations
 
 from datetime import date
 
-from ai_power_validation.collectors import (
+from ai_inference_tracker.collectors import (
     SourceDocument,
     collect_sec_documents,
     collect_seed_documents,
     prune_source_documents,
     store_source_documents,
 )
-from ai_power_validation.db import get_connection
+from ai_inference_tracker.db import get_connection
 
 
 class FakeResponse:

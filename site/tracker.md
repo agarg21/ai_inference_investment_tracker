@@ -7,6 +7,13 @@
 
 The core thesis is that AI inference is moving from a sidecar workload to the dominant compute and capex driver. The best risk-adjusted expressions are the infrastructure layers that make inference possible at scale: power, cooling, networking, memory, advanced packaging, and the platforms that monetize inference demand directly.
 
+## Dashboard Snapshot
+
+- **Current Focus**: Power, Cooling and Electrical Infrastructure, Inference Platforms and Accelerated Compute, Networking, Fabrics and Optics
+- **High-Conviction Names**: VRT, ETN, NVDA, AMZN, GOOGL
+- **Open Predictions**: 4
+- **Shortlist Mix**: core 9, second_order 3
+
 ## Ranked Areas
 
 ### 1. Power, Cooling and Electrical Infrastructure
@@ -142,3 +149,27 @@ The core thesis is that AI inference is moving from a sidecar workload to the do
   Statement: AI-related utility backlog, load-contract and transmission-approval events will continue to create medium-horizon trading setups.
   Evidence to watch: New data-center tariffs, contracted-load updates, PJM awards and utility IR disclosures.
   Falsifier: New events stop showing positive post-disclosure abnormal returns versus XLU.
+
+## Research History
+
+### 2026-03-29 - Refocused around inference
+
+The research base moved from a narrower utility-event lens to the broader AI inference inflection thesis anchored in Jensen Huang's comments, hyperscaler capex, and GTC 2026 messaging.
+
+- Promoted power, cooling, networking, memory, and cloud inference platforms to the core stack.
+- Reframed utilities and transmission as a second-order expression instead of the whole thesis.
+
+### 2026-03-29 - Sharpened the public-market shortlist
+
+The watchlist now favors companies that either monetize inference directly or provide the physical systems required to serve it at scale.
+
+- Core shortlist centered on VRT, ETN, NVDA, AMZN, GOOGL, MSFT, AVGO, and MU.
+- Second-order names CEG, GEV, and FE remain tactical rather than core thesis expressions.
+
+### 2026-03-29 - Started a trackable prediction framework
+
+Predictions now capture what would confirm or falsify the thesis so daily updates can change the research only when new evidence warrants it.
+
+- Added explicit open predictions around capex, infrastructure winners, networking and memory bottlenecks, and utility-event tradability.
+- Prepared the site for daily summaries and visible research-history updates.
+

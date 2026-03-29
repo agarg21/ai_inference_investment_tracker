@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from ai_power_validation.constants import SIGNAL_TIER_BY_VARIANT
+from ai_inference_tracker.constants import SIGNAL_TIER_BY_VARIANT
 
 
 def add_event_priority(events_df: pd.DataFrame) -> pd.DataFrame:

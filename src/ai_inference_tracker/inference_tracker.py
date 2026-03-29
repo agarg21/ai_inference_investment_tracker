@@ -2,10 +2,11 @@ from __future__ import annotations
 
 import json
 import shutil
+from collections import Counter
 from html import escape
 from pathlib import Path
 
-from ai_power_validation.config import Settings
+from ai_inference_tracker.config import Settings
 
 
 def _load_research_data(path: Path) -> dict:
@@ -84,6 +85,81 @@ def _render_predictions(predictions: list[dict]) -> str:
     return "".join(cards)
 
 
+def _derive_snapshot(data: dict) -> list[dict[str, str]]:
+    areas = data.get("areas", [])
+    shortlist = data.get("shortlist", [])
+    predictions = data.get("predictions", [])
+
+    top_area_names = ", ".join(area["name"] for area in areas[:3]) or "No ranked areas yet"
+    high_confidence = [item["ticker"] for item in shortlist if item.get("confidence") == "high"]
+    lead_names = ", ".join(high_confidence[:5] or [item["ticker"] for item in shortlist[:5]]) or "No shortlist yet"
+    open_prediction_count = sum(1 for item in predictions if item.get("status") == "open")
+    bucket_counts = Counter(item.get("bucket", "unknown") for item in shortlist)
+    bucket_mix = ", ".join(f"{bucket} {count}" for bucket, count in sorted(bucket_counts.items())) or "No bucket mix yet"
+
+    return [
+        {"label": "Current Focus", "value": top_area_names},
+        {"label": "High-Conviction Names", "value": lead_names},
+        {"label": "Open Predictions", "value": str(open_prediction_count)},
+        {"label": "Shortlist Mix", "value": bucket_mix},
+    ]
+
+
+def _render_snapshot_cards(data: dict) -> str:
+    cards = []
+    for item in _derive_snapshot(data):
+        cards.append(
+            f"""
+            <section class="snapshot-card">
+              <div class="eyebrow">Dashboard Snapshot</div>
+              <h3>{escape(item["label"])}</h3>
+              <p>{escape(item["value"])}</p>
+            </section>
+            """
+        )
+    return "".join(cards)
+
+
+def _render_history(history: list[dict]) -> str:
+    if not history:
+        return "<section class='card'><p class='muted'>No research history yet.</p></section>"
+
+    cards = []
+    for item in history:
+        changes = "".join(f"<li>{escape(change)}</li>" for change in item.get("changes", []))
+        cards.append(
+            f"""
+            <section class="card history-card">
+              <div class="eyebrow">{escape(item["date"])}</div>
+              <h3>{escape(item["title"])}</h3>
+              <p>{escape(item["summary"])}</p>
+              <ul>{changes}</ul>
+            </section>
+            """
+        )
+    return "".join(cards)
+
+
+def _append_history_markdown(md_lines: list[str], history: list[dict]) -> None:
+    md_lines.extend(["", "## Research History", ""])
+    if not history:
+        md_lines.append("- No research history yet.")
+        return
+
+    for item in history:
+        md_lines.extend(
+            [
+                f"### {item['date']} - {item['title']}",
+                "",
+                item["summary"],
+                "",
+            ]
+        )
+        for change in item.get("changes", []):
+            md_lines.append(f"- {change}")
+        md_lines.append("")
+
+
 def build_inference_tracker(settings: Settings, research_path: Path | None = None) -> tuple[Path, Path]:
     research_path = research_path or settings.data_dir / "inference_thesis_watchlist.json"
     data = _load_research_data(research_path)
@@ -101,6 +177,8 @@ def build_inference_tracker(settings: Settings, research_path: Path | None = Non
     shortlist_rows = _render_shortlist_rows(data.get("shortlist", []))
     prediction_cards = _render_predictions(data.get("predictions", []))
     source_links = _render_links(data.get("sources", []))
+    snapshot_cards = _render_snapshot_cards(data)
+    history_cards = _render_history(data.get("history", []))
 
     html = f"""<!doctype html>
 <html lang="en">
@@ -159,6 +237,11 @@ def build_inference_tracker(settings: Settings, research_path: Path | None = Non
     .areas {{
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     }}
+    .snapshot-grid {{
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      margin-top: 18px;
+    }}
+    .snapshot-card,
     .card {{
       background: var(--paper);
       border: 1px solid var(--line);
@@ -166,6 +249,7 @@ def build_inference_tracker(settings: Settings, research_path: Path | None = Non
       padding: 20px;
       box-shadow: var(--shadow);
     }}
+    .snapshot-card h3,
     .card h3 {{ margin-top: 6px; margin-bottom: 10px; }}
     .card h4 {{ margin-bottom: 8px; }}
     .subgrid {{
@@ -200,13 +284,15 @@ def build_inference_tracker(settings: Settings, research_path: Path | None = Non
     .prediction {{
       border-left: 6px solid var(--accent);
     }}
+    .history-card ul,
+    .card ul {{
+      padding-left: 18px;
+    }}
     @media (max-width: 720px) {{
       .hero h1 {{ font-size: 1.8rem; }}
       table, thead, tbody, th, td, tr {{ display: block; }}
       thead {{ display: none; }}
-      td {{
-        padding: 10px 12px;
-      }}
+      td {{ padding: 10px 12px; }}
     }}
   </style>
 </head>
@@ -218,6 +304,7 @@ def build_inference_tracker(settings: Settings, research_path: Path | None = Non
       <p>{escape(data["summary"])}</p>
       <p><strong>Last updated:</strong> {escape(data["updated_on"])}</p>
       <p><strong>Current stance:</strong> {escape(data["stance"])}</p>
+      <section class="grid snapshot-grid">{snapshot_cards}</section>
     </section>
 
     <h2 class="section-title">Top-Level Sources</h2>
@@ -246,12 +333,19 @@ def build_inference_tracker(settings: Settings, research_path: Path | None = Non
 
     <h2 class="section-title">Predictions To Track</h2>
     <section class="grid">{prediction_cards}</section>
+
+    <h2 class="section-title">Research History</h2>
+    <section class="grid">{history_cards}</section>
   </main>
 </body>
 </html>
 """
     html_path.write_text(html)
     site_index_path.write_text(html)
+
+    snapshot_lines = []
+    for item in _derive_snapshot(data):
+        snapshot_lines.extend([f"- **{item['label']}**: {item['value']}"])
 
     md_lines = [
         f"# {data['title']}",
@@ -262,6 +356,10 @@ def build_inference_tracker(settings: Settings, research_path: Path | None = Non
         "## Summary",
         "",
         data["summary"],
+        "",
+        "## Dashboard Snapshot",
+        "",
+        *snapshot_lines,
         "",
         "## Ranked Areas",
         "",
@@ -301,6 +399,8 @@ def build_inference_tracker(settings: Settings, research_path: Path | None = Non
                 f"  Falsifier: {item['falsifier']}",
             ]
         )
+
+    _append_history_markdown(md_lines, data.get("history", []))
 
     markdown = "\n".join(md_lines) + "\n"
     md_path.write_text(markdown)

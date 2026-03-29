@@ -30,7 +30,7 @@ Local-first Codex research workspace for the AI inference inflection thesis, wit
 ## Setup
 
 ```bash
-cd ai_power_validation
+cd ai_inference_investment_tracker
 uv venv --python 3.12
 source .venv/bin/activate
 uv sync --extra dev --no-editable
@@ -82,7 +82,7 @@ This writes:
 
 ## Outputs
 
-- `data/ai_power_validation.db`
+- `data/ai_inference_tracker.db`
 - `data/outputs/source_documents.csv`
 - `data/outputs/source_review_queue.csv`
 - `data/outputs/targeted_readable_review_queue.csv`
@@ -98,6 +98,15 @@ This writes:
 - `site/tracker.md`
 - `site/daily-summary.md`
 - `data/charts/*.png`
+
+## Tracker Notes
+
+The tracker homepage now includes:
+
+- a dashboard snapshot with the current focus areas, top watchlist names, and open prediction count
+- a research history section so daily runs can leave a visible audit trail
+
+If you update `data/inference_thesis_watchlist.json`, keep the `history` list short and high-signal so the site remains easy to scan.
 
 ## Netlify
 
