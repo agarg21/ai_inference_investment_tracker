@@ -109,3 +109,9 @@ That means Netlify can serve the committed `site/` folder directly without runni
 2. Rebuild the tracker
 3. Commit the refreshed `site/` output
 4. Let Netlify publish the latest committed static site
+
+For a one-command local publish of the tracker outputs:
+
+```bash
+./scripts/publish_site.sh
+```

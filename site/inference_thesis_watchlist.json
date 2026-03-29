@@ -1,1 +1,406 @@
-{"title": "Inference Tracker", "updated_on": "2026-03-29", "stance": "Bullish", "summary": "Testing tracker generation.", "sources": [{"label": "Example", "url": "https://example.com"}], "areas": [{"rank": 1, "name": "Power", "bucket": "core", "why_now": "Power matters.", "public_names": ["VRT"], "what_confirms": "Orders stay strong.", "main_risk": "Demand fades.", "research_questions": ["Is backlog rising?"], "sources": [{"label": "Example", "url": "https://example.com"}]}], "shortlist": [{"priority": 1, "ticker": "VRT", "company": "Vertiv", "bucket": "core", "area": "Power", "confidence": "high", "thesis": "Power density rises.", "watch_for": "Backlog.", "key_risk": "Demand fades."}], "predictions": [{"title": "Power wins", "target_date": "2026-12-31", "status": "open", "statement": "Power remains a bottleneck.", "evidence_to_watch": "Orders and margins.", "falsifier": "Orders weaken."}]}
+{
+  "title": "AI Inference Inflection Research",
+  "updated_on": "2026-03-29",
+  "stance": "Bullish on infrastructure and systems; selective on direct app-layer beneficiaries.",
+  "summary": "The core thesis is that AI inference is moving from a sidecar workload to the dominant compute and capex driver. The best risk-adjusted expressions are the infrastructure layers that make inference possible at scale: power, cooling, networking, memory, advanced packaging, and the platforms that monetize inference demand directly.",
+  "sources": [
+    {
+      "label": "Jensen Huang on Lex Fridman transcript",
+      "url": "https://lexfridman.com/jensen-huang-transcript"
+    },
+    {
+      "label": "NVIDIA GTC 2026 live updates",
+      "url": "https://blogs.nvidia.com/blog/gtc-2026-news/"
+    },
+    {
+      "label": "NVIDIA Vera Rubin DSX AI factory reference design",
+      "url": "https://nvidianews.nvidia.com/news/nvidia-releases-vera-rubin-dsx-ai-factory-reference-design-and-omniverse-dsx-digital-twin-blueprint-with-broad-industry-support"
+    },
+    {
+      "label": "NVIDIA and Emerald AI on flexible AI factories as grid assets",
+      "url": "https://nvidianews.nvidia.com/news/nvidia-and-emerald-ai-join-leading-energy-companies-to-pioneer-flexible-ai-factories-as-grid-assets"
+    },
+    {
+      "label": "Alphabet Q4 2025 earnings call",
+      "url": "https://abc.xyz/investor/events/event-details/2026/2025-Q4-Earnings-Call-2026-Dr_C033hS6/default.aspx"
+    },
+    {
+      "label": "Amazon Q4 2025 results",
+      "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/default.aspx"
+    },
+    {
+      "label": "Microsoft FY26 Q2 results",
+      "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q2/press-release-webcast"
+    },
+    {
+      "label": "IEA Energy and AI",
+      "url": "https://www.iea.org/reports/energy-and-ai/executive-summary"
+    },
+    {
+      "label": "EIA January 13, 2026 power-demand release",
+      "url": "https://www.eia.gov/pressroom/releases/press582.php"
+    },
+    {
+      "label": "PJM on 30 GW data-center load growth",
+      "url": "https://insidelines.pjm.com/2025-year-in-review-planning-prepares-for-burgeoning-electricity-demand/"
+    }
+  ],
+  "areas": [
+    {
+      "rank": 1,
+      "name": "Power, Cooling and Electrical Infrastructure",
+      "bucket": "core",
+      "why_now": "GTC 2026 pushed AI factories as physical infrastructure governed by tokens per watt, heat rejection, power conversion and factory-level resilience.",
+      "public_names": ["VRT", "ETN", "TT", "HUBB"],
+      "what_confirms": "Orders, backlog, margin expansion and AI-specific product commentary stay strong through 2026.",
+      "main_risk": "Supply-chain catch-up compresses pricing or demand shifts from centralized to cheaper edge form factors faster than expected.",
+      "research_questions": [
+        "Which vendors have the cleanest AI-specific backlog disclosure?",
+        "Which ones benefit most from retrofit demand versus greenfield AI factories?",
+        "How much operating leverage remains if AI demand stays elevated into 2027?"
+      ],
+      "sources": [
+        {
+          "label": "NVIDIA GTC 2026 live updates",
+          "url": "https://blogs.nvidia.com/blog/gtc-2026-news/"
+        },
+        {
+          "label": "Flexible AI factories as grid assets",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-and-emerald-ai-join-leading-energy-companies-to-pioneer-flexible-ai-factories-as-grid-assets"
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "name": "Inference Platforms and Accelerated Compute",
+      "bucket": "core",
+      "why_now": "Hyperscalers and NVIDIA are already seeing massive token demand and are still raising AI infrastructure spending.",
+      "public_names": ["NVDA", "AMZN", "GOOGL", "MSFT"],
+      "what_confirms": "Inference revenue, token growth and AI capex remain elevated while utilization stays tight.",
+      "main_risk": "Inference economics commoditize faster than expected or custom silicon shifts profit pools away from the obvious winners.",
+      "research_questions": [
+        "Who captures the most inference economics: cloud, model layer or silicon platform?",
+        "How durable are current margins if inference prices fall while volume explodes?",
+        "Do reasoning and agentic workloads pull demand toward more compute-intensive serving?"
+      ],
+      "sources": [
+        {
+          "label": "Alphabet Q4 2025 earnings call",
+          "url": "https://abc.xyz/investor/events/event-details/2026/2025-Q4-Earnings-Call-2026-Dr_C033hS6/default.aspx"
+        },
+        {
+          "label": "Amazon Q4 2025 results",
+          "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/default.aspx"
+        },
+        {
+          "label": "Microsoft FY26 Q2 results",
+          "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q2/press-release-webcast"
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "name": "Networking, Fabrics and Optics",
+      "bucket": "core",
+      "why_now": "NVIDIA is packaging inference as rack-scale and factory-scale infrastructure, which keeps interconnect and switching on the critical path.",
+      "public_names": ["AVGO", "ANET", "MRVL", "LITE", "COHR"],
+      "what_confirms": "Back-end AI network spend remains strong and optical transitions accelerate with higher-density clusters.",
+      "main_risk": "Inference becomes much more localized and memory-efficient, reducing the need for expensive fabric upgrades.",
+      "research_questions": [
+        "Does inference demand favor Ethernet winners over more proprietary fabrics?",
+        "How quickly do optical upgrades move from niche to standard in AI factories?",
+        "Which suppliers have the best exposure to back-end AI networking versus generic networking?"
+      ],
+      "sources": [
+        {
+          "label": "Broadcom Tomahawk 6 announcement",
+          "url": "https://investors.broadcom.com/node/63146/pdf"
+        },
+        {
+          "label": "Arista AI networking resources",
+          "url": "https://www.arista.com/en/solutions/ai-networking"
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "name": "Memory, Packaging and Advanced Semiconductor Manufacturing",
+      "bucket": "core",
+      "why_now": "Reasoning-heavy inference raises the value of bandwidth, memory footprint and advanced packaging rather than reducing them.",
+      "public_names": ["MU", "AMAT", "KLAC", "ASML", "TSM"],
+      "what_confirms": "HBM and advanced packaging stay supply-constrained and capex remains biased toward leading-edge AI demand.",
+      "main_risk": "A sharp efficiency improvement lowers the memory intensity of inference or causes a fast mix shift away from the current packaging stack.",
+      "research_questions": [
+        "How much of the current HBM surge is training versus inference?",
+        "Which equipment names benefit most from packaging bottlenecks rather than wafer starts alone?",
+        "Where is the cleanest public exposure to advanced packaging capacity?"
+      ],
+      "sources": [
+        {
+          "label": "Micron on HBM4 and AI memory",
+          "url": "https://investors.micron.com/news-releases/news-release-details/2026/micron-begins-sampling-hbm4-to-key-customers/default.aspx"
+        },
+        {
+          "label": "NVIDIA GTC 2026 live updates",
+          "url": "https://blogs.nvidia.com/blog/gtc-2026-news/"
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "name": "Generation, Grid Flexibility and Transmission",
+      "bucket": "second_order",
+      "why_now": "Inference growth keeps pulling on electricity demand and NVIDIA is now explicitly discussing flexible AI factories as grid assets.",
+      "public_names": ["CEG", "VST", "NRG", "GEV", "FE", "AEP", "ETR"],
+      "what_confirms": "Utilities, generators and transmission owners keep signing AI-related contracts while regulators permit cost recovery and new buildout.",
+      "main_risk": "Interconnection delays, politics and customer concentration make these names look better in theory than in realized earnings.",
+      "research_questions": [
+        "Which utilities have the best customer-protective tariff structures?",
+        "Do merchant generators or regulated utilities capture more upside from inference demand?",
+        "Can flexible-load programs become material enough to matter for grid operators and vendors?"
+      ],
+      "sources": [
+        {
+          "label": "IEA Energy and AI",
+          "url": "https://www.iea.org/reports/energy-and-ai/executive-summary"
+        },
+        {
+          "label": "EIA January 13, 2026 release",
+          "url": "https://www.eia.gov/pressroom/releases/press582.php"
+        },
+        {
+          "label": "PJM data-center growth article",
+          "url": "https://insidelines.pjm.com/2025-year-in-review-planning-prepares-for-burgeoning-electricity-demand/"
+        }
+      ]
+    },
+    {
+      "rank": 6,
+      "name": "AI-Native Storage and Context Layer",
+      "bucket": "second_order",
+      "why_now": "GTC elevated storage more than many investors expected, which fits longer-context models, retrieval and agentic workflows.",
+      "public_names": ["DELL", "HPE", "NTAP"],
+      "what_confirms": "Storage vendors start discussing AI-specific demand around context persistence, fast retrieval and AI factory reference architectures.",
+      "main_risk": "The value accrues to private startups and hyperscaler in-house stacks instead of public incumbents.",
+      "research_questions": [
+        "Which public companies have real AI-factory storage exposure rather than generic enterprise storage?",
+        "Does inference growth create a durable storage-margin opportunity or just a transient server mix bump?",
+        "How important do DPUs and data movement become in inference-heavy systems?"
+      ],
+      "sources": [
+        {
+          "label": "NVIDIA GTC 2026 live updates",
+          "url": "https://blogs.nvidia.com/blog/gtc-2026-news/"
+        }
+      ]
+    },
+    {
+      "rank": 7,
+      "name": "Industrial Software, Digital Twins and AI-Factory Buildout",
+      "bucket": "second_order",
+      "why_now": "NVIDIA is explicitly tying Omniverse and digital-twin workflows to AI factory design and optimization.",
+      "public_names": ["PTC", "J", "PCOR"],
+      "what_confirms": "Management teams begin talking about AI factory design, layout, thermal and capacity-planning workflows in a measurable way.",
+      "main_risk": "This becomes a services layer with weak pricing power rather than a software margin story.",
+      "research_questions": [
+        "Who has real exposure to AI-factory design and operations rather than generic enterprise digital twin branding?",
+        "Which software or services names are actually on the procurement path?",
+        "Is the better trade software, engineering services or construction enablement?"
+      ],
+      "sources": [
+        {
+          "label": "Vera Rubin DSX AI factory reference design",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-releases-vera-rubin-dsx-ai-factory-reference-design-and-omniverse-dsx-digital-twin-blueprint-with-broad-industry-support"
+        }
+      ]
+    },
+    {
+      "rank": 8,
+      "name": "Distributed AI Grids and Telecom",
+      "bucket": "speculative",
+      "why_now": "GTC 2026 also pushed AI grids and distributed orchestration, which opens a path for telecom and edge infrastructure but is earlier and harder to underwrite.",
+      "public_names": ["TMUS", "VZ", "T"],
+      "what_confirms": "Operators start disclosing real inference revenue or enterprise AI-grid contracts rather than demos and partnerships.",
+      "main_risk": "The concept is strategically interesting but commercially tiny for longer than investors expect.",
+      "research_questions": [
+        "Can distributed AI serving become material for telecom economics?",
+        "Who captures the margin: the carrier, the cloud or the software orchestration layer?",
+        "Is there a better public proxy than the telecom operators themselves?"
+      ],
+      "sources": [
+        {
+          "label": "NVIDIA GTC 2026 live updates",
+          "url": "https://blogs.nvidia.com/blog/gtc-2026-news/"
+        }
+      ]
+    }
+  ],
+  "shortlist": [
+    {
+      "priority": 1,
+      "ticker": "VRT",
+      "company": "Vertiv Holdings",
+      "bucket": "core",
+      "area": "Power, Cooling and Electrical Infrastructure",
+      "confidence": "high",
+      "thesis": "If inference becomes AI-factory scale, thermal and power density stay on the critical path.",
+      "watch_for": "AI backlog, liquid cooling mix, margin expansion and hyperscaler commentary.",
+      "key_risk": "Pricing pressure if supply catches up quickly."
+    },
+    {
+      "priority": 2,
+      "ticker": "ETN",
+      "company": "Eaton",
+      "bucket": "core",
+      "area": "Power, Cooling and Electrical Infrastructure",
+      "confidence": "high",
+      "thesis": "Electrical distribution, switchgear and data-center power quality should stay mission-critical.",
+      "watch_for": "Data-center electrical order growth and North America capacity commentary.",
+      "key_risk": "Cyclical industrial softness offsets AI demand."
+    },
+    {
+      "priority": 3,
+      "ticker": "NVDA",
+      "company": "NVIDIA",
+      "bucket": "core",
+      "area": "Inference Platforms and Accelerated Compute",
+      "confidence": "high",
+      "thesis": "Still the cleanest direct public exposure to reasoning-heavy inference and AI-factory systems.",
+      "watch_for": "Inference software adoption, Blackwell/Rubin system demand and networking attach rates.",
+      "key_risk": "Valuation and mix shifts toward lower-margin ecosystem layers."
+    },
+    {
+      "priority": 4,
+      "ticker": "AMZN",
+      "company": "Amazon",
+      "bucket": "core",
+      "area": "Inference Platforms and Accelerated Compute",
+      "confidence": "high",
+      "thesis": "AWS is monetizing inference directly through Bedrock and custom silicon while spending aggressively.",
+      "watch_for": "Trainium adoption, Bedrock inference commentary and sustained capex efficiency.",
+      "key_risk": "Cloud competition compresses returns on AI capex."
+    },
+    {
+      "priority": 5,
+      "ticker": "GOOGL",
+      "company": "Alphabet",
+      "bucket": "core",
+      "area": "Inference Platforms and Accelerated Compute",
+      "confidence": "high",
+      "thesis": "Strong token growth and TPU-based inference demand make Alphabet a direct monetization and infrastructure play.",
+      "watch_for": "Token growth, TPU deployment and gen-AI revenue scale.",
+      "key_risk": "Capex outruns monetization or search disruption dominates the narrative."
+    },
+    {
+      "priority": 6,
+      "ticker": "MSFT",
+      "company": "Microsoft",
+      "bucket": "core",
+      "area": "Inference Platforms and Accelerated Compute",
+      "confidence": "high",
+      "thesis": "Microsoft is an AI diffusion and enterprise adoption proxy with direct inference exposure through Azure and copilots.",
+      "watch_for": "Azure AI services growth and enterprise AI monetization.",
+      "key_risk": "Demand remains real but margins lag because infra spending stays too heavy."
+    },
+    {
+      "priority": 7,
+      "ticker": "AVGO",
+      "company": "Broadcom",
+      "bucket": "core",
+      "area": "Networking, Fabrics and Optics",
+      "confidence": "high",
+      "thesis": "AI back-end fabrics, switching and custom silicon should remain essential as inference scales up.",
+      "watch_for": "AI networking revenue growth and custom accelerator momentum.",
+      "key_risk": "Networking spend normalizes sooner than expected."
+    },
+    {
+      "priority": 8,
+      "ticker": "ANET",
+      "company": "Arista Networks",
+      "bucket": "core",
+      "area": "Networking, Fabrics and Optics",
+      "confidence": "medium",
+      "thesis": "A strong public proxy for AI back-end network buildout if inference remains cluster-heavy.",
+      "watch_for": "Back-end AI networking commentary and cloud customer spend.",
+      "key_risk": "More AI networking spend goes to alternative stacks or bundled platforms."
+    },
+    {
+      "priority": 9,
+      "ticker": "MU",
+      "company": "Micron Technology",
+      "bucket": "core",
+      "area": "Memory, Packaging and Advanced Semiconductor Manufacturing",
+      "confidence": "high",
+      "thesis": "Inference growth that increases reasoning intensity should keep HBM and memory bandwidth strategically valuable.",
+      "watch_for": "HBM shipment commentary, supply tightness and pricing power.",
+      "key_risk": "Memory supply expands too fast and flattens the profit pool."
+    },
+    {
+      "priority": 10,
+      "ticker": "CEG",
+      "company": "Constellation Energy",
+      "bucket": "second_order",
+      "area": "Generation, Grid Flexibility and Transmission",
+      "confidence": "medium",
+      "thesis": "Inference-scale power demand and AI factory siting can favor clean baseload and contracted generation.",
+      "watch_for": "Large-load contracting, data-center power agreements and pricing discipline.",
+      "key_risk": "Politics, power-market volatility or slower-than-expected siting."
+    },
+    {
+      "priority": 11,
+      "ticker": "GEV",
+      "company": "GE Vernova",
+      "bucket": "second_order",
+      "area": "Generation, Grid Flexibility and Transmission",
+      "confidence": "medium",
+      "thesis": "If the grid and generation stack become the bottleneck, turbine, grid and transmission vendors matter more.",
+      "watch_for": "Gas turbine demand, grid order growth and AI-related commentary.",
+      "key_risk": "Execution risk and long-cycle order timing."
+    },
+    {
+      "priority": 12,
+      "ticker": "FE",
+      "company": "FirstEnergy",
+      "bucket": "second_order",
+      "area": "Generation, Grid Flexibility and Transmission",
+      "confidence": "medium",
+      "thesis": "A tactical event-driven way to express AI-related transmission approvals in load-hot regions.",
+      "watch_for": "PJM project awards, major transmission approvals and explicit data-center load tie-ins.",
+      "key_risk": "Signal remains tradable but too sparse for a core long-term thesis."
+    }
+  ],
+  "predictions": [
+    {
+      "title": "Inference capex stays elevated through year-end 2026",
+      "target_date": "2026-12-31",
+      "status": "open",
+      "statement": "Hyperscalers will keep AI capex elevated and continue framing demand around inference, reasoning and agentic workloads rather than just training.",
+      "evidence_to_watch": "Quarterly capex guidance, token-growth commentary, inference product revenue and utilization remarks.",
+      "falsifier": "Capex is cut materially or managements shift from shortage language to oversupply language."
+    },
+    {
+      "title": "Power and cooling outperform as the cleanest second-order beneficiaries",
+      "target_date": "2026-12-31",
+      "status": "open",
+      "statement": "Power, cooling and electrical vendors will prove to be cleaner beneficiaries of inference growth than many direct app-layer AI names.",
+      "evidence_to_watch": "Backlog growth, margin expansion and AI-specific order commentary from infrastructure vendors.",
+      "falsifier": "Order growth decelerates sharply while app-layer monetizers capture most of the economics."
+    },
+    {
+      "title": "Networking and memory remain bottlenecks, not commoditized sidecars",
+      "target_date": "2026-12-31",
+      "status": "open",
+      "statement": "Inference growth will keep high-performance networking and memory strategic rather than reducing them to commodity line items.",
+      "evidence_to_watch": "AI networking revenue disclosures, HBM supply commentary, optical adoption and cluster-scale design announcements.",
+      "falsifier": "Inference architectures localize enough that bandwidth and memory bottlenecks ease materially."
+    },
+    {
+      "title": "Utility and transmission event signals remain tradable",
+      "target_date": "2026-12-31",
+      "status": "open",
+      "statement": "AI-related utility backlog, load-contract and transmission-approval events will continue to create medium-horizon trading setups.",
+      "evidence_to_watch": "New data-center tariffs, contracted-load updates, PJM awards and utility IR disclosures.",
+      "falsifier": "New events stop showing positive post-disclosure abnormal returns versus XLU."
+    }
+  ]
+}
