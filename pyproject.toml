@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-power-validation"
+version = "0.1.0"
+description = "Validation kit for AI power bottleneck trading signals."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "beautifulsoup4>=4.12,<5.0",
+  "lxml>=5.3,<6.0",
+  "matplotlib>=3.9,<4.0",
+  "pandas>=2.2,<3.0",
+  "pypdf>=5.4,<6.0",
+  "requests>=2.32,<3.0",
+  "yfinance>=0.2.54,<1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3,<9.0",
+]
+
+[project.scripts]
+collect_sources = "ai_power_validation.cli:collect_sources_main"
+run_event_study = "ai_power_validation.cli:run_event_study_main"
+build_report = "ai_power_validation.cli:build_report_main"
+build_inference_tracker = "ai_power_validation.cli:build_inference_tracker_main"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ai_power_validation = ["schema.sql"]
+
+[tool.uv]
+package = true

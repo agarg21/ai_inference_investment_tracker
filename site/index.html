@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Inference Thesis Tracker</title>
+  <style>
+    :root {
+      --bg: #f6f1e8;
+      --paper: #fffdf9;
+      --ink: #1d2228;
+      --muted: #5d6570;
+      --accent: #1d6b57;
+      --accent-soft: #ddeee8;
+      --line: #d8d0c3;
+      --shadow: 0 18px 40px rgba(29, 34, 40, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Iowan Old Style", serif;
+      background: radial-gradient(circle at top left, #fff7df 0, var(--bg) 45%, #efe7da 100%);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 40px 20px 64px;
+    }
+    .hero {
+      background: linear-gradient(135deg, rgba(29,107,87,0.95), rgba(24,43,62,0.95));
+      color: #f9f6ef;
+      padding: 28px;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+    .hero h1 { margin: 0 0 8px; font-size: 2.4rem; }
+    .hero p { margin: 8px 0; max-width: 72ch; }
+    .eyebrow {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #d9f3eb;
+    }
+    .section-title {
+      margin: 36px 0 14px;
+      font-size: 1.65rem;
+    }
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+    .areas {
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    .card h3 { margin-top: 6px; margin-bottom: 10px; }
+    .card h4 { margin-bottom: 8px; }
+    .subgrid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .muted { color: var(--muted); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--paper);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    th, td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: #f0eadf;
+    }
+    tr:last-child td { border-bottom: 0; }
+    a { color: var(--accent); }
+    .prediction {
+      border-left: 6px solid var(--accent);
+    }
+    @media (max-width: 720px) {
+      .hero h1 { font-size: 1.8rem; }
+      table, thead, tbody, th, td, tr { display: block; }
+      thead { display: none; }
+      td {
+        padding: 10px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">AI Inference Thesis Tracker</div>
+      <h1>Inference Tracker</h1>
+      <p>Testing tracker generation.</p>
+      <p><strong>Last updated:</strong> 2026-03-29</p>
+      <p><strong>Current stance:</strong> Bullish</p>
+    </section>
+
+    <h2 class="section-title">Top-Level Sources</h2>
+    <section class="card"><ul><li><a href='https://example.com' target='_blank' rel='noreferrer'>Example</a></li></ul></section>
+
+    <h2 class="section-title">Ranked Areas</h2>
+    <section class="grid areas">
+    <section class="card">
+      <div class="eyebrow">CORE | Rank 1</div>
+      <h3>Power</h3>
+      <p>Power matters.</p>
+      <p><strong>Public names:</strong> VRT</p>
+      <p><strong>What would confirm it:</strong> Orders stay strong.</p>
+      <p><strong>Main risk:</strong> Demand fades.</p>
+      <div class="subgrid">
+        <div>
+          <h4>Research Questions</h4>
+          <ul><li>Is backlog rising?</li></ul>
+        </div>
+        <div>
+          <h4>Key Sources</h4>
+          <ul><li><a href='https://example.com' target='_blank' rel='noreferrer'>Example</a></li></ul>
+        </div>
+      </div>
+    </section>
+    </section>
+
+    <h2 class="section-title">Shortlist</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Ticker</th>
+          <th>Company</th>
+          <th>Bucket</th>
+          <th>Area</th>
+          <th>Confidence</th>
+          <th>Why It Matters</th>
+          <th>Watch For</th>
+          <th>Risk</th>
+        </tr>
+      </thead>
+      <tbody><tr><td>1</td><td>VRT</td><td>Vertiv</td><td>core</td><td>Power</td><td>high</td><td>Power density rises.</td><td>Backlog.</td><td>Demand fades.</td></tr></tbody>
+    </table>
+
+    <h2 class="section-title">Predictions To Track</h2>
+    <section class="grid">
+            <section class="card prediction">
+              <div class="eyebrow">OPEN | Target 2026-12-31</div>
+              <h3>Power wins</h3>
+              <p>Power remains a bottleneck.</p>
+              <p><strong>Evidence to watch:</strong> Orders and margins.</p>
+              <p><strong>How it could fail:</strong> Orders weaken.</p>
+            </section>
+            </section>
+  </main>
+</body>
+</html>
