@@ -160,6 +160,119 @@ def _append_history_markdown(md_lines: list[str], history: list[dict]) -> None:
         md_lines.append("")
 
 
+def _render_user_demand_page(data: dict) -> tuple[str, str]:
+    demand = data.get("user_demand_framework", {})
+    intro = demand.get(
+        "intro",
+        "Working assumptions on user-level inference demand, measurable proxies, and likely value capture paths.",
+    )
+    segments = demand.get("segments", [])
+    proxies = demand.get("proxies", [])
+    beneficiaries = demand.get("beneficiary_stack", [])
+
+    segment_rows = "".join(
+        "<tr>"
+        f"<td>{escape(item.get('segment', ''))}</td>"
+        f"<td>{escape(item.get('today_estimate', ''))}</td>"
+        f"<td>{escape(item.get('two_year_view', ''))}</td>"
+        f"<td>{escape(item.get('notes', ''))}</td>"
+        "</tr>"
+        for item in segments
+    )
+    proxy_items = "".join(
+        "<li><strong>"
+        + escape(item.get("name", "Proxy"))
+        + ":</strong> "
+        + escape(item.get("why_it_matters", ""))
+        + "</li>"
+        for item in proxies
+    )
+    beneficiary_items = "".join(
+        "<li><strong>"
+        + escape(item.get("layer", "Layer"))
+        + ":</strong> "
+        + escape(item.get("beneficiaries", ""))
+        + " — "
+        + escape(item.get("logic", ""))
+        + "</li>"
+        for item in beneficiaries
+    )
+
+    html = f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User-Level Inference Demand Map</title>
+  <style>
+    body {{ margin: 0; font-family: Georgia, "Iowan Old Style", serif; background: #f6f1e8; color: #1d2228; }}
+    main {{ max-width: 980px; margin: 0 auto; padding: 32px 20px 56px; }}
+    .card {{ background: #fffdf9; border: 1px solid #d8d0c3; border-radius: 16px; padding: 18px; margin-top: 14px; }}
+    .muted {{ color: #5d6570; }}
+    table {{ width: 100%; border-collapse: collapse; margin-top: 10px; }}
+    th, td {{ border-bottom: 1px solid #d8d0c3; padding: 10px; text-align: left; vertical-align: top; }}
+    th {{ background: #f0eadf; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 0.84rem; text-transform: uppercase; }}
+    a {{ color: #1d6b57; }}
+  </style>
+</head>
+<body>
+  <main>
+    <p><a href="index.html">← Back to tracker</a></p>
+    <h1>User-Level Inference Demand Map</h1>
+    <p class="muted">{escape(intro)}</p>
+    <section class="card">
+      <h2>2-Year Demand Framing</h2>
+      <table>
+        <thead>
+          <tr><th>Segment</th><th>Today</th><th>2-Year View</th><th>Notes</th></tr>
+        </thead>
+        <tbody>{segment_rows}</tbody>
+      </table>
+    </section>
+    <section class="card">
+      <h2>Practical Proxies You Can Track Now</h2>
+      <ul>{proxy_items}</ul>
+    </section>
+    <section class="card">
+      <h2>Who Benefits If This Is Right</h2>
+      <ul>{beneficiary_items}</ul>
+    </section>
+  </main>
+</body>
+</html>
+"""
+
+    md_lines = [
+        "# User-Level Inference Demand Map",
+        "",
+        intro,
+        "",
+        "## 2-Year Demand Framing",
+        "",
+    ]
+    for item in segments:
+        md_lines.extend(
+            [
+                f"### {item.get('segment', 'Segment')}",
+                f"- Today: {item.get('today_estimate', 'n/a')}",
+                f"- 2-year view: {item.get('two_year_view', 'n/a')}",
+                f"- Notes: {item.get('notes', 'n/a')}",
+                "",
+            ]
+        )
+    md_lines.extend(["## Practical Proxies", ""])
+    for item in proxies:
+        md_lines.append(f"- **{item.get('name', 'Proxy')}**: {item.get('why_it_matters', '')}")
+    md_lines.extend(["", "## Beneficiary Stack", ""])
+    for item in beneficiaries:
+        md_lines.append(
+            f"- **{item.get('layer', 'Layer')}**: {item.get('beneficiaries', '')} — {item.get('logic', '')}"
+        )
+    md_lines.append("")
+    markdown = "\n".join(md_lines)
+    return html, markdown
+
+
 def build_inference_tracker(settings: Settings, research_path: Path | None = None) -> tuple[Path, Path]:
     research_path = research_path or settings.data_dir / "inference_thesis_watchlist.json"
     data = _load_research_data(research_path)
@@ -171,6 +284,8 @@ def build_inference_tracker(settings: Settings, research_path: Path | None = Non
     site_index_path = site_dir / "index.html"
     site_summary_path = site_dir / "daily-summary.md"
     site_tracker_md_path = site_dir / "tracker.md"
+    site_user_demand_html_path = site_dir / "user-demand.html"
+    site_user_demand_md_path = site_dir / "user-demand.md"
     site_watchlist_path = site_dir / "inference_thesis_watchlist.json"
 
     area_cards = "".join(_render_area_card(area) for area in data.get("areas", []))
@@ -304,6 +419,7 @@ def build_inference_tracker(settings: Settings, research_path: Path | None = Non
       <p>{escape(data["summary"])}</p>
       <p><strong>Last updated:</strong> {escape(data["updated_on"])}</p>
       <p><strong>Current stance:</strong> {escape(data["stance"])}</p>
+      <p><strong>New:</strong> <a href="user-demand.html">User-level demand map</a> with token-demand framing, proxies, and beneficiary stack.</p>
       <section class="grid snapshot-grid">{snapshot_cards}</section>
     </section>
 
@@ -405,6 +521,9 @@ def build_inference_tracker(settings: Settings, research_path: Path | None = Non
     markdown = "\n".join(md_lines) + "\n"
     md_path.write_text(markdown)
     site_tracker_md_path.write_text(markdown)
+    user_demand_html, user_demand_markdown = _render_user_demand_page(data)
+    site_user_demand_html_path.write_text(user_demand_html)
+    site_user_demand_md_path.write_text(user_demand_markdown)
     shutil.copy2(research_path, site_watchlist_path)
 
     daily_summary_path = settings.outputs_dir / "inference_daily_summary.md"

@@ -51,7 +51,12 @@
       "name": "Power, Cooling and Electrical Infrastructure",
       "bucket": "core",
       "why_now": "GTC 2026 pushed AI factories as physical infrastructure governed by tokens per watt, heat rejection, power conversion and factory-level resilience.",
-      "public_names": ["VRT", "ETN", "TT", "HUBB"],
+      "public_names": [
+        "VRT",
+        "ETN",
+        "TT",
+        "HUBB"
+      ],
       "what_confirms": "Orders, backlog, margin expansion and AI-specific product commentary stay strong through 2026.",
       "main_risk": "Supply-chain catch-up compresses pricing or demand shifts from centralized to cheaper edge form factors faster than expected.",
       "research_questions": [
@@ -75,7 +80,12 @@
       "name": "Inference Platforms and Accelerated Compute",
       "bucket": "core",
       "why_now": "Hyperscalers and NVIDIA are already seeing massive token demand and are still raising AI infrastructure spending.",
-      "public_names": ["NVDA", "AMZN", "GOOGL", "MSFT"],
+      "public_names": [
+        "NVDA",
+        "AMZN",
+        "GOOGL",
+        "MSFT"
+      ],
       "what_confirms": "Inference revenue, token growth and AI capex remain elevated while utilization stays tight.",
       "main_risk": "Inference economics commoditize faster than expected or custom silicon shifts profit pools away from the obvious winners.",
       "research_questions": [
@@ -103,7 +113,13 @@
       "name": "Networking, Fabrics and Optics",
       "bucket": "core",
       "why_now": "NVIDIA is packaging inference as rack-scale and factory-scale infrastructure, which keeps interconnect and switching on the critical path.",
-      "public_names": ["AVGO", "ANET", "MRVL", "LITE", "COHR"],
+      "public_names": [
+        "AVGO",
+        "ANET",
+        "MRVL",
+        "LITE",
+        "COHR"
+      ],
       "what_confirms": "Back-end AI network spend remains strong and optical transitions accelerate with higher-density clusters.",
       "main_risk": "Inference becomes much more localized and memory-efficient, reducing the need for expensive fabric upgrades.",
       "research_questions": [
@@ -127,7 +143,13 @@
       "name": "Memory, Packaging and Advanced Semiconductor Manufacturing",
       "bucket": "core",
       "why_now": "Reasoning-heavy inference raises the value of bandwidth, memory footprint and advanced packaging rather than reducing them.",
-      "public_names": ["MU", "AMAT", "KLAC", "ASML", "TSM"],
+      "public_names": [
+        "MU",
+        "AMAT",
+        "KLAC",
+        "ASML",
+        "TSM"
+      ],
       "what_confirms": "HBM and advanced packaging stay supply-constrained and capex remains biased toward leading-edge AI demand.",
       "main_risk": "A sharp efficiency improvement lowers the memory intensity of inference or causes a fast mix shift away from the current packaging stack.",
       "research_questions": [
@@ -151,7 +173,15 @@
       "name": "Generation, Grid Flexibility and Transmission",
       "bucket": "second_order",
       "why_now": "Inference growth keeps pulling on electricity demand and NVIDIA is now explicitly discussing flexible AI factories as grid assets.",
-      "public_names": ["CEG", "VST", "NRG", "GEV", "FE", "AEP", "ETR"],
+      "public_names": [
+        "CEG",
+        "VST",
+        "NRG",
+        "GEV",
+        "FE",
+        "AEP",
+        "ETR"
+      ],
       "what_confirms": "Utilities, generators and transmission owners keep signing AI-related contracts while regulators permit cost recovery and new buildout.",
       "main_risk": "Interconnection delays, politics and customer concentration make these names look better in theory than in realized earnings.",
       "research_questions": [
@@ -179,7 +209,11 @@
       "name": "AI-Native Storage and Context Layer",
       "bucket": "second_order",
       "why_now": "GTC elevated storage more than many investors expected, which fits longer-context models, retrieval and agentic workflows.",
-      "public_names": ["DELL", "HPE", "NTAP"],
+      "public_names": [
+        "DELL",
+        "HPE",
+        "NTAP"
+      ],
       "what_confirms": "Storage vendors start discussing AI-specific demand around context persistence, fast retrieval and AI factory reference architectures.",
       "main_risk": "The value accrues to private startups and hyperscaler in-house stacks instead of public incumbents.",
       "research_questions": [
@@ -199,7 +233,11 @@
       "name": "Industrial Software, Digital Twins and AI-Factory Buildout",
       "bucket": "second_order",
       "why_now": "NVIDIA is explicitly tying Omniverse and digital-twin workflows to AI factory design and optimization.",
-      "public_names": ["PTC", "J", "PCOR"],
+      "public_names": [
+        "PTC",
+        "J",
+        "PCOR"
+      ],
       "what_confirms": "Management teams begin talking about AI factory design, layout, thermal and capacity-planning workflows in a measurable way.",
       "main_risk": "This becomes a services layer with weak pricing power rather than a software margin story.",
       "research_questions": [
@@ -219,7 +257,11 @@
       "name": "Distributed AI Grids and Telecom",
       "bucket": "speculative",
       "why_now": "GTC 2026 also pushed AI grids and distributed orchestration, which opens a path for telecom and edge infrastructure but is earlier and harder to underwrite.",
-      "public_names": ["TMUS", "VZ", "T"],
+      "public_names": [
+        "TMUS",
+        "VZ",
+        "T"
+      ],
       "what_confirms": "Operators start disclosing real inference revenue or enterprise AI-grid contracts rather than demos and partnerships.",
       "main_risk": "The concept is strategically interesting but commercially tiny for longer than investors expect.",
       "research_questions": [
@@ -431,5 +473,77 @@
         "Prepared the site for daily summaries and visible research-history updates."
       ]
     }
-  ]
+  ],
+  "user_demand_framework": {
+    "intro": "A practical framework for estimating how inference demand scales from individual users and mapping the value chain winners.",
+    "segments": [
+      {
+        "segment": "Knowledge workers (copilot usage)",
+        "today_estimate": "~5k-20k tokens/user/day equivalent",
+        "two_year_view": "~50k-250k tokens/user/day as copilots become always-on",
+        "notes": "Driven by draft/rewrite/search workflows, meeting copilots, and agent handoffs."
+      },
+      {
+        "segment": "Analysts & developers (heavy users)",
+        "today_estimate": "~50k-300k tokens/user/day",
+        "two_year_view": "~0.5M-3M tokens/user/day with agent loops and code/test automation",
+        "notes": "Reasoning chains plus tool-calling can increase inference per task by 5-20x."
+      },
+      {
+        "segment": "Personal assistant consumers",
+        "today_estimate": "~1k-10k tokens/user/day for chat-style interactions",
+        "two_year_view": "~20k-150k tokens/user/day with voice, memory, and multimodal assistants",
+        "notes": "Ambient assistant patterns can create many low-latency sessions throughout the day."
+      }
+    ],
+    "proxies": [
+      {
+        "name": "Model API revenue growth and token disclosures",
+        "why_it_matters": "Direct read-through for paid inference demand and pricing trends."
+      },
+      {
+        "name": "Hyperscaler AI capex plus inference commentary",
+        "why_it_matters": "If inference is scaling faster than efficiency gains, infra spend remains elevated."
+      },
+      {
+        "name": "Enterprise seat penetration of AI copilots",
+        "why_it_matters": "Seat growth is the cleanest adoption proxy for knowledge-worker demand."
+      },
+      {
+        "name": "GPU cloud utilization / spot pricing",
+        "why_it_matters": "Tight utilization indicates sustained demand at current supply."
+      },
+      {
+        "name": "Utility and grid interconnection disclosures tied to data centers",
+        "why_it_matters": "Second-order validation that compute demand is persisting physically."
+      }
+    ],
+    "beneficiary_stack": [
+      {
+        "layer": "Model + platform companies",
+        "beneficiaries": "OpenAI ecosystem, Anthropic ecosystem, hyperscaler model platforms",
+        "logic": "Capture usage revenue first, but margins depend on inference efficiency and distribution strength."
+      },
+      {
+        "layer": "Compute and networking suppliers",
+        "beneficiaries": "NVIDIA, AMD, Broadcom, Arista, optics suppliers",
+        "logic": "Benefit when token demand growth outpaces cost/token declines."
+      },
+      {
+        "layer": "Power and thermal infrastructure",
+        "beneficiaries": "Vertiv, Eaton, Trane and electrical chain",
+        "logic": "Monetize the physical bottlenecks needed to serve larger inference loads."
+      },
+      {
+        "layer": "Application wrappers and workflow incumbents",
+        "beneficiaries": "Microsoft, Google, Salesforce, ServiceNow, vertical SaaS leaders",
+        "logic": "Win where distribution and workflow integration convert inference into sticky ARR."
+      },
+      {
+        "layer": "Second-order grid and industrial beneficiaries",
+        "beneficiaries": "Utilities, generation, transmission, engineering services",
+        "logic": "Upside appears with lag but can persist if AI demand translates into long-cycle capex."
+      }
+    ]
+  }
 }

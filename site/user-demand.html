@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User-Level Inference Demand Map</title>
+  <style>
+    body { margin: 0; font-family: Georgia, "Iowan Old Style", serif; background: #f6f1e8; color: #1d2228; }
+    main { max-width: 980px; margin: 0 auto; padding: 32px 20px 56px; }
+    .card { background: #fffdf9; border: 1px solid #d8d0c3; border-radius: 16px; padding: 18px; margin-top: 14px; }
+    .muted { color: #5d6570; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border-bottom: 1px solid #d8d0c3; padding: 10px; text-align: left; vertical-align: top; }
+    th { background: #f0eadf; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 0.84rem; text-transform: uppercase; }
+    a { color: #1d6b57; }
+  </style>
+</head>
+<body>
+  <main>
+    <p><a href="index.html">← Back to tracker</a></p>
+    <h1>User-Level Inference Demand Map</h1>
+    <p class="muted">A practical framework for estimating how inference demand scales from individual users and mapping the value chain winners.</p>
+    <section class="card">
+      <h2>2-Year Demand Framing</h2>
+      <table>
+        <thead>
+          <tr><th>Segment</th><th>Today</th><th>2-Year View</th><th>Notes</th></tr>
+        </thead>
+        <tbody><tr><td>Knowledge workers (copilot usage)</td><td>~5k-20k tokens/user/day equivalent</td><td>~50k-250k tokens/user/day as copilots become always-on</td><td>Driven by draft/rewrite/search workflows, meeting copilots, and agent handoffs.</td></tr><tr><td>Analysts &amp; developers (heavy users)</td><td>~50k-300k tokens/user/day</td><td>~0.5M-3M tokens/user/day with agent loops and code/test automation</td><td>Reasoning chains plus tool-calling can increase inference per task by 5-20x.</td></tr><tr><td>Personal assistant consumers</td><td>~1k-10k tokens/user/day for chat-style interactions</td><td>~20k-150k tokens/user/day with voice, memory, and multimodal assistants</td><td>Ambient assistant patterns can create many low-latency sessions throughout the day.</td></tr></tbody>
+      </table>
+    </section>
+    <section class="card">
+      <h2>Practical Proxies You Can Track Now</h2>
+      <ul><li><strong>Model API revenue growth and token disclosures:</strong> Direct read-through for paid inference demand and pricing trends.</li><li><strong>Hyperscaler AI capex plus inference commentary:</strong> If inference is scaling faster than efficiency gains, infra spend remains elevated.</li><li><strong>Enterprise seat penetration of AI copilots:</strong> Seat growth is the cleanest adoption proxy for knowledge-worker demand.</li><li><strong>GPU cloud utilization / spot pricing:</strong> Tight utilization indicates sustained demand at current supply.</li><li><strong>Utility and grid interconnection disclosures tied to data centers:</strong> Second-order validation that compute demand is persisting physically.</li></ul>
+    </section>
+    <section class="card">
+      <h2>Who Benefits If This Is Right</h2>
+      <ul><li><strong>Model + platform companies:</strong> OpenAI ecosystem, Anthropic ecosystem, hyperscaler model platforms — Capture usage revenue first, but margins depend on inference efficiency and distribution strength.</li><li><strong>Compute and networking suppliers:</strong> NVIDIA, AMD, Broadcom, Arista, optics suppliers — Benefit when token demand growth outpaces cost/token declines.</li><li><strong>Power and thermal infrastructure:</strong> Vertiv, Eaton, Trane and electrical chain — Monetize the physical bottlenecks needed to serve larger inference loads.</li><li><strong>Application wrappers and workflow incumbents:</strong> Microsoft, Google, Salesforce, ServiceNow, vertical SaaS leaders — Win where distribution and workflow integration convert inference into sticky ARR.</li><li><strong>Second-order grid and industrial beneficiaries:</strong> Utilities, generation, transmission, engineering services — Upside appears with lag but can persist if AI demand translates into long-cycle capex.</li></ul>
+    </section>
+  </main>
+</body>
+</html>
