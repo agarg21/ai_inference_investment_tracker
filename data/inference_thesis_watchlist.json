@@ -1,6 +1,6 @@
 {
   "title": "AI Inference Inflection Research",
-  "updated_on": "2026-03-29",
+  "updated_on": "2026-03-30",
   "stance": "Bullish on infrastructure and systems; selective on direct app-layer beneficiaries.",
   "summary": "The core thesis is that AI inference is moving from a sidecar workload to the dominant compute and capex driver. The best risk-adjusted expressions are the infrastructure layers that make inference possible at scale: power, cooling, networking, memory, advanced packaging, and the platforms that monetize inference demand directly.",
   "sources": [
@@ -446,6 +446,15 @@
     }
   ],
   "history": [
+    {
+      "date": "2026-03-30",
+      "title": "Promoted demand tracking to a first-class dashboard",
+      "summary": "The research site now separates the narrative thesis from a more operational demand dashboard focused on measurable inference signals.",
+      "changes": [
+        "Added a dedicated inference-demand dashboard page with provider scorecards and metric methodology.",
+        "Shifted the homepage toward a stronger product-style layout with clearer navigation between thesis and demand."
+      ]
+    },
     {
       "date": "2026-03-29",
       "title": "Refocused around inference",

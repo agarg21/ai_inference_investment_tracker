@@ -1,0 +1,545 @@
+{
+  "title": "Inference Demand Dashboard",
+  "updated_on": "2026-03-30",
+  "standard_metric": {
+    "name": "Total processed tokens",
+    "definition": "Use total input plus output tokens as the primary inference-demand metric. When a provider discloses token throughput instead of totals, track tokens per minute separately. When only messages are disclosed, estimate token-equivalents with a clearly labeled range.",
+    "why_it_matters": "Tokens processed is the cleanest bridge between user demand, model throughput, infrastructure load, and provider monetization."
+  },
+  "metric_stack": [
+    {
+      "name": "Direct processed tokens",
+      "importance": "Best",
+      "description": "Closest to actual inference compute served. Prefer monthly or weekly totals from provider disclosures or marketplace rankings."
+    },
+    {
+      "name": "Token throughput",
+      "importance": "Best when totals are absent",
+      "description": "Useful when companies publish tokens per minute or similar throughput rates instead of period totals."
+    },
+    {
+      "name": "Messages or requests",
+      "importance": "Proxy",
+      "description": "A strong demand read-through when token totals are not available, but requires a token-per-message assumption."
+    },
+    {
+      "name": "Users, seats, and customers",
+      "importance": "Adoption",
+      "description": "Shows how broadly inference products are diffusing across consumer and enterprise surfaces."
+    },
+    {
+      "name": "Revenue, capex, and utilization",
+      "importance": "Economic confirmation",
+      "description": "Confirms that token growth is translating into spending power and infrastructure demand."
+    }
+  ],
+  "kpis": [
+    {
+      "label": "OpenRouter monthly tokens",
+      "value": "30T",
+      "note": "Current platform-wide monthly volume on OpenRouter's public rankings/state-of-AI pages."
+    },
+    {
+      "label": "Gemini monthly tokens",
+      "value": "980T+",
+      "note": "Google said Gemini was processing more than 980 trillion monthly tokens by July 2025."
+    },
+    {
+      "label": "OpenAI daily messages",
+      "value": "2.63B",
+      "note": "OpenAI research reported 2.627 billion daily ChatGPT messages in June 2025."
+    },
+    {
+      "label": "OpenAI weekly users",
+      "value": "800M+",
+      "note": "OpenAI said ChatGPT had more than 800 million weekly users by November 2025."
+    }
+  ],
+  "comparison_rows": [
+    {
+      "provider": "OpenRouter",
+      "standardized_metric": "30T monthly tokens",
+      "evidence_type": "Direct tokens",
+      "weekly_growth": "Starts once snapshot archive is live",
+      "monthly_growth": "Starts once monthly archive is live",
+      "yearly_growth": "n/a",
+      "confidence": "high",
+      "note": "Best transparent marketplace tape, but not the whole industry."
+    },
+    {
+      "provider": "Google / Gemini",
+      "standardized_metric": "980T+ monthly tokens",
+      "evidence_type": "Direct reported tokens",
+      "weekly_growth": "n/a",
+      "monthly_growth": "+104% versus May 2025",
+      "yearly_growth": "+4,849% versus May 2024",
+      "confidence": "high",
+      "note": "Cleanest big-lab token disclosure currently available."
+    },
+    {
+      "provider": "OpenAI / ChatGPT",
+      "standardized_metric": "~79T monthly token-equivalent (base case)",
+      "evidence_type": "Estimated from message volume",
+      "weekly_growth": "n/a",
+      "monthly_growth": "+20% versus July 2025 daily messages",
+      "yearly_growth": "+482% versus June 2024 daily messages",
+      "confidence": "medium",
+      "note": "Direct token disclosure is sparse, so scale is inferred from messages and users."
+    },
+    {
+      "provider": "Anthropic / Claude",
+      "standardized_metric": ">=8.8T monthly floor",
+      "evidence_type": "OpenRouter floor plus official proxies",
+      "weekly_growth": "Pending archive",
+      "monthly_growth": "n/a",
+      "yearly_growth": "n/a",
+      "confidence": "low-to-medium",
+      "note": "Likely much larger in reality, but first-party total token figures are not public."
+    }
+  ],
+  "tracking_plan": [
+    {
+      "cadence": "Weekly",
+      "focus": "OpenRouter live tape",
+      "coverage": "Top models, author share, top apps, and total marketplace token flow",
+      "status": "Live now"
+    },
+    {
+      "cadence": "Monthly",
+      "focus": "Direct provider token and throughput disclosures",
+      "coverage": "Gemini monthly tokens, OpenRouter monthly totals, any new lab token disclosures",
+      "status": "Partial coverage"
+    },
+    {
+      "cadence": "Quarterly",
+      "focus": "Users, seats, customers, capex, and revenue read-throughs",
+      "coverage": "OpenAI users and seats, hyperscaler capex, cloud AI monetization signals",
+      "status": "High-value proxy layer"
+    },
+    {
+      "cadence": "Annual",
+      "focus": "Economic-index and research datasets",
+      "coverage": "OpenAI usage papers, Anthropic Economic Index, marketplace retrospectives",
+      "status": "Context and calibration"
+    }
+  ],
+  "provider_snapshots": [
+    {
+      "provider": "OpenRouter",
+      "confidence": "high",
+      "measurement": "Direct tokens and model-level weekly usage",
+      "headline": "Weekly token volumes by model and app are publicly visible.",
+      "current_metric": {
+        "label": "Public monthly volume",
+        "value": "30T",
+        "date": "2026-03-30",
+        "growth": "Need weekly snapshots to compute platform WoW and MoM cleanly."
+      },
+      "rows": [
+        {
+          "date": "2025-11-30",
+          "metric": "Study dataset size",
+          "value": "100T+ tokens over 13 months",
+          "growth": "n/a"
+        },
+        {
+          "date": "2026-03-30",
+          "metric": "Public monthly volume",
+          "value": "30T",
+          "growth": "n/a"
+        },
+        {
+          "date": "2026-03-30",
+          "metric": "Tracked user base",
+          "value": "5M+ users",
+          "growth": "n/a"
+        }
+      ],
+      "bullets": [
+        "Best publicly accessible weekly token leaderboard across frontier and open models.",
+        "Useful as a live inference-demand tape even though it represents marketplace traffic rather than the whole industry.",
+        "Can support true WoW and MoM growth tracking once we start persisting snapshots."
+      ],
+      "sources": [
+        {
+          "label": "OpenRouter rankings",
+          "url": "https://openrouter.ai/rankings"
+        },
+        {
+          "label": "OpenRouter State of AI",
+          "url": "https://openrouter.ai/state-of-ai"
+        }
+      ]
+    },
+    {
+      "provider": "Google / Gemini",
+      "confidence": "high",
+      "measurement": "Direct tokens, token throughput, MAU, and developer adoption",
+      "headline": "Google is the cleanest big-lab source for direct token throughput disclosures.",
+      "current_metric": {
+        "label": "Direct API throughput",
+        "value": "10B tokens/min",
+        "date": "2026-02-04",
+        "growth": "+42.9% versus 7B tokens/min in Q3 2025."
+      },
+      "rows": [
+        {
+          "date": "2024-05-14",
+          "metric": "Monthly tokens processed",
+          "value": "9.7T",
+          "growth": "Baseline"
+        },
+        {
+          "date": "2025-05-20",
+          "metric": "Monthly tokens processed",
+          "value": "480T+",
+          "growth": "+4,849% YoY versus May 2024"
+        },
+        {
+          "date": "2025-07-23",
+          "metric": "Monthly tokens processed",
+          "value": "980T+",
+          "growth": "+104% versus May 2025"
+        },
+        {
+          "date": "2025-10-29",
+          "metric": "Direct API throughput",
+          "value": "7B tokens/min",
+          "growth": "Baseline for Q3 2025"
+        },
+        {
+          "date": "2026-02-04",
+          "metric": "Direct API throughput",
+          "value": "10B tokens/min",
+          "growth": "+42.9% versus Q3 2025"
+        },
+        {
+          "date": "2025-05-20",
+          "metric": "Gemini app MAU",
+          "value": "400M+",
+          "growth": "Baseline"
+        },
+        {
+          "date": "2025-10-29",
+          "metric": "Gemini app MAU",
+          "value": "650M+",
+          "growth": "+62.5% versus May 2025"
+        },
+        {
+          "date": "2026-02-04",
+          "metric": "Gemini app MAU",
+          "value": "750M+",
+          "growth": "+15.4% versus Q3 2025"
+        }
+      ],
+      "bullets": [
+        "Google gives the strongest first-party token metrics among the major labs.",
+        "The jump from 9.7T to 480T+ to 980T+ monthly tokens is one of the clearest public inference-demand curves in the market.",
+        "Direct API throughput and MAU let us separate developer demand from consumer adoption."
+      ],
+      "sources": [
+        {
+          "label": "Google I/O 2025 keynote recap",
+          "url": "https://blog.google/technology/ai/io-2025-keynote/"
+        },
+        {
+          "label": "Alphabet Q3 2025 message from the CEO",
+          "url": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q3-2025/"
+        },
+        {
+          "label": "Alphabet Q4 2025 message from the CEO",
+          "url": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q4-2025/"
+        }
+      ]
+    },
+    {
+      "provider": "OpenAI / ChatGPT",
+      "confidence": "medium",
+      "measurement": "Messages, users, seats, and estimated token-equivalent throughput",
+      "headline": "OpenAI discloses scale through message counts and user growth more than token totals.",
+      "current_metric": {
+        "label": "Weekly users",
+        "value": "800M+",
+        "date": "2025-11-05",
+        "growth": "+14.3% versus 700M+ by July 2025."
+      },
+      "rows": [
+        {
+          "date": "2024-06-26",
+          "metric": "Daily ChatGPT messages",
+          "value": "451M",
+          "growth": "Baseline"
+        },
+        {
+          "date": "2025-06-26",
+          "metric": "Daily ChatGPT messages",
+          "value": "2.627B",
+          "growth": "+482% YoY"
+        },
+        {
+          "date": "2025-07-22",
+          "metric": "Daily messages across OpenAI tools",
+          "value": "2.5B+",
+          "growth": "In line with June 2025 research"
+        },
+        {
+          "date": "2025-08-01",
+          "metric": "Daily messages globally",
+          "value": "3B",
+          "growth": "+20% versus July 2025"
+        },
+        {
+          "date": "2025-07-01",
+          "metric": "Weekly active users",
+          "value": "700M+",
+          "growth": "Baseline"
+        },
+        {
+          "date": "2025-11-05",
+          "metric": "Weekly active users",
+          "value": "800M+",
+          "growth": "+14.3% versus July 2025"
+        },
+        {
+          "date": "2025-11-05",
+          "metric": "Paid business customers",
+          "value": "1M+",
+          "growth": "n/a"
+        },
+        {
+          "date": "2025-11-05",
+          "metric": "ChatGPT for Work seats",
+          "value": "7M+",
+          "growth": "n/a"
+        }
+      ],
+      "estimated_tokens": {
+        "method": "Directional estimate only: multiply 2.627B daily messages by 300 to 1,500 total tokens per message to represent a consumer-to-heavy-workload band.",
+        "low_daily_tokens": "0.79T",
+        "base_daily_tokens": "2.63T",
+        "high_daily_tokens": "3.94T",
+        "warning": "Use as a framing range, not a precise valuation input."
+      },
+      "bullets": [
+        "OpenAI is enormous on user and message volume, but still relatively sparse on direct token-throughput disclosures.",
+        "Message growth and seat growth make OpenAI one of the best demand proxies even when the token math must be estimated.",
+        "The token-equivalent range is directionally useful for comparing scale with disclosed token metrics from Google and OpenRouter."
+      ],
+      "sources": [
+        {
+          "label": "ChatGPT usage and adoption patterns at work",
+          "url": "https://cdn.openai.com/pdf/a253471f-8260-40c6-a2cc-aa93fe9f142e/economic-research-chatgpt-usage-paper.pdf"
+        },
+        {
+          "label": "How people use ChatGPT",
+          "url": "https://cdn.openai.com/pdf/3c7f7e1b-36c4-446b-916c-11183e4266b7/chatgpt-usage-and-adoption-patterns-at-work.pdf"
+        },
+        {
+          "label": "OpenAI Australia economic blueprint",
+          "url": "https://cdn.openai.com/global-affairs/61b341bc-56eb-46dc-b356-a621e02cb82d/openai-australia-economic-blueprint-july-2025.pdf"
+        },
+        {
+          "label": "One million business users",
+          "url": "https://openai.com/index/one-million-business-users/"
+        }
+      ]
+    },
+    {
+      "provider": "Anthropic / Claude",
+      "confidence": "low-to-medium",
+      "measurement": "Usage-composition proxies and marketplace token floors",
+      "headline": "Anthropic publishes strong usage-quality data, but not direct system-wide token totals.",
+      "current_metric": {
+        "label": "OpenRouter floor",
+        "value": "2.03T/week",
+        "date": "2026-03-30",
+        "growth": "Observed from Claude Sonnet 4.6 plus Claude Opus 4.6 on OpenRouter rankings."
+      },
+      "rows": [
+        {
+          "date": "2025-02-10",
+          "metric": "Occupations with AI use in at least 25% of tasks",
+          "value": "36%",
+          "growth": "Baseline"
+        },
+        {
+          "date": "2025-02-10",
+          "metric": "Occupations with AI use in at least 75% of tasks",
+          "value": "4%",
+          "growth": "Baseline"
+        },
+        {
+          "date": "2025-02-10",
+          "metric": "Augmentation share",
+          "value": "57%",
+          "growth": "Baseline"
+        },
+        {
+          "date": "2025-02-10",
+          "metric": "Automation share",
+          "value": "43%",
+          "growth": "Baseline"
+        },
+        {
+          "date": "2026-01-15",
+          "metric": "Economic Index dataset cadence",
+          "value": "Millions of anonymized Claude conversations",
+          "growth": "Longitudinal tracking, not token totals"
+        }
+      ],
+      "bullets": [
+        "Anthropic is excellent for seeing what Claude is used for, especially the shift toward coding and enterprise automation.",
+        "For total-demand sizing, Anthropic needs to be treated as a partial-information case.",
+        "The best near-term approach is to track Claude's OpenRouter token floor and pair it with Anthropic's official Economic Index updates."
+      ],
+      "sources": [
+        {
+          "label": "The Anthropic Economic Index",
+          "url": "https://www.anthropic.com/news/the-anthropic-economic-index/"
+        },
+        {
+          "label": "Anthropic Economic Index hub",
+          "url": "https://www.anthropic.com/economic-index/"
+        },
+        {
+          "label": "Anthropic Economic Index report: Uneven geographic and enterprise AI adoption",
+          "url": "https://www.anthropic.com/research/anthropic-economic-index-september-2025-report/"
+        },
+        {
+          "label": "Anthropic Economic Index: AI's impact on software development",
+          "url": "https://www.anthropic.com/news/impact-software-development"
+        }
+      ]
+    }
+  ],
+  "openrouter_live": {
+    "captured_on": "2026-03-30",
+    "top_models": [
+      {
+        "rank": 1,
+        "model": "MiMo-V2-Pro",
+        "provider": "xiaomi",
+        "tokens": "4.19T",
+        "change": "+112%"
+      },
+      {
+        "rank": 5,
+        "model": "Claude Sonnet 4.6",
+        "provider": "anthropic",
+        "tokens": "1.04T",
+        "change": "+1%"
+      },
+      {
+        "rank": 6,
+        "model": "Claude Opus 4.6",
+        "provider": "anthropic",
+        "tokens": "987B",
+        "change": "0%"
+      },
+      {
+        "rank": 7,
+        "model": "Gemini 3 Flash Preview",
+        "provider": "google",
+        "tokens": "976B",
+        "change": "+5%"
+      },
+      {
+        "rank": 10,
+        "model": "Grok 4.1 Fast",
+        "provider": "x-ai",
+        "tokens": "628B",
+        "change": "+33%"
+      }
+    ],
+    "author_share": [
+      {
+        "rank": 1,
+        "author": "xiaomi",
+        "tokens": "1.67T",
+        "share": "25.3%"
+      },
+      {
+        "rank": 2,
+        "author": "google",
+        "tokens": "800B",
+        "share": "12.1%"
+      },
+      {
+        "rank": 3,
+        "author": "anthropic",
+        "tokens": "736B",
+        "share": "11.2%"
+      },
+      {
+        "rank": 4,
+        "author": "openai",
+        "tokens": "541B",
+        "share": "8.2%"
+      }
+    ],
+    "top_apps": [
+      {
+        "rank": 1,
+        "app": "OpenClaw",
+        "tokens": "874B today"
+      },
+      {
+        "rank": 2,
+        "app": "Kilo Code",
+        "tokens": "291B today"
+      },
+      {
+        "rank": 3,
+        "app": "Claude Code",
+        "tokens": "110B today"
+      },
+      {
+        "rank": 4,
+        "app": "Cline",
+        "tokens": "73.5B today"
+      }
+    ]
+  },
+  "source_library": [
+    {
+      "label": "OpenRouter rankings",
+      "url": "https://openrouter.ai/rankings"
+    },
+    {
+      "label": "OpenRouter State of AI",
+      "url": "https://openrouter.ai/state-of-ai"
+    },
+    {
+      "label": "Google I/O 2025 keynote recap",
+      "url": "https://blog.google/technology/ai/io-2025-keynote/"
+    },
+    {
+      "label": "Alphabet Q3 2025 message from the CEO",
+      "url": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q3-2025/"
+    },
+    {
+      "label": "Alphabet Q4 2025 message from the CEO",
+      "url": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q4-2025/"
+    },
+    {
+      "label": "ChatGPT usage and adoption patterns at work",
+      "url": "https://cdn.openai.com/pdf/a253471f-8260-40c6-a2cc-aa93fe9f142e/economic-research-chatgpt-usage-paper.pdf"
+    },
+    {
+      "label": "How people use ChatGPT",
+      "url": "https://cdn.openai.com/pdf/3c7f7e1b-36c4-446b-916c-11183e4266b7/chatgpt-usage-and-adoption-patterns-at-work.pdf"
+    },
+    {
+      "label": "One million business users",
+      "url": "https://openai.com/index/one-million-business-users/"
+    },
+    {
+      "label": "The Anthropic Economic Index",
+      "url": "https://www.anthropic.com/news/the-anthropic-economic-index/"
+    },
+    {
+      "label": "Anthropic Economic Index hub",
+      "url": "https://www.anthropic.com/economic-index/"
+    }
+  ]
+}

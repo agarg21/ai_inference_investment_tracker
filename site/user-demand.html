@@ -3,40 +3,911 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>User-Level Inference Demand Map</title>
+  <title>Inference Demand Dashboard</title>
   <style>
-    body { margin: 0; font-family: Georgia, "Iowan Old Style", serif; background: #f6f1e8; color: #1d2228; }
-    main { max-width: 980px; margin: 0 auto; padding: 32px 20px 56px; }
-    .card { background: #fffdf9; border: 1px solid #d8d0c3; border-radius: 16px; padding: 18px; margin-top: 14px; }
-    .muted { color: #5d6570; }
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    th, td { border-bottom: 1px solid #d8d0c3; padding: 10px; text-align: left; vertical-align: top; }
-    th { background: #f0eadf; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 0.84rem; text-transform: uppercase; }
-    a { color: #1d6b57; }
-  </style>
+:root {
+  --bg: #050816;
+  --bg-soft: #0b1020;
+  --panel: rgba(16, 24, 49, 0.88);
+  --panel-strong: rgba(13, 20, 41, 0.96);
+  --panel-soft: rgba(255, 255, 255, 0.04);
+  --ink: #eef4ff;
+  --ink-soft: #b7c3df;
+  --ink-faint: #8a96b6;
+  --line: rgba(180, 204, 255, 0.14);
+  --accent: #6ee7ff;
+  --accent-2: #7c9cff;
+  --accent-3: #4ade80;
+  --warn: #f59e0b;
+  --danger: #fb7185;
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+  --radius: 24px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(124, 156, 255, 0.18), transparent 28%),
+    radial-gradient(circle at top right, rgba(110, 231, 255, 0.12), transparent 24%),
+    linear-gradient(180deg, #08101f 0%, var(--bg) 55%, #040611 100%);
+  min-height: 100vh;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.shell {
+  width: min(1240px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 24px 0 64px;
+}
+.topbar {
+  position: sticky;
+  top: 14px;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(8, 14, 28, 0.82);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.brand-mark {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 18px rgba(110, 231, 255, 0.55);
+}
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  color: var(--ink-soft);
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.04);
+  font-weight: 600;
+}
+.tab.active {
+  color: #07101e;
+  background: linear-gradient(135deg, var(--accent), #d0f6ff);
+  box-shadow: 0 14px 30px rgba(110, 231, 255, 0.25);
+}
+.hero {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.9fr);
+  padding: 34px;
+  border-radius: 30px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, rgba(14, 25, 53, 0.96), rgba(8, 13, 28, 0.98)),
+    linear-gradient(135deg, rgba(110, 231, 255, 0.12), rgba(124, 156, 255, 0.08));
+  box-shadow: var(--shadow);
+}
+.hero-copy h1 {
+  margin: 10px 0 12px;
+  font-size: clamp(2.2rem, 4vw, 4rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+.hero-copy p {
+  margin: 0 0 12px;
+  max-width: 70ch;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  font-size: 0.92rem;
+}
+.hero-side {
+  display: grid;
+  gap: 14px;
+}
+.grid {
+  display: grid;
+  gap: 18px;
+}
+.hero-stats {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.stats-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.card-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.tracking-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.rank-grid {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.card,
+.stat-card,
+.list-card,
+.leaderboard-card,
+.timeline-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+.card,
+.list-card,
+.leaderboard-card,
+.timeline-card {
+  padding: 22px;
+}
+.stat-card {
+  padding: 18px 20px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+}
+.stat-card .eyebrow {
+  color: var(--ink-faint);
+}
+.stat-card h3,
+.card h3,
+.leaderboard-card h3,
+.timeline-card h3 {
+  margin: 8px 0 10px;
+  font-size: 1.15rem;
+}
+.stat-value {
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.muted { color: var(--ink-faint); }
+.section {
+  margin-top: 28px;
+}
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.section-head h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2vw, 2rem);
+}
+.section-head p {
+  margin: 0;
+  color: var(--ink-faint);
+}
+.source-list,
+.bullet-list,
+.compact-list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--ink-soft);
+}
+.source-list li,
+.bullet-list li,
+.compact-list li { margin: 8px 0; }
+.area-card .meta-row,
+.shortlist-card .meta-row,
+.provider-card .meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.badge.core { color: var(--accent); }
+.badge.second_order { color: #cdb8ff; }
+.badge.speculative { color: var(--warn); }
+.badge.high { color: var(--accent-3); }
+.badge.medium { color: #f0abfc; }
+.badge.low,
+.badge.low-to-medium,
+.badge.watchlist { color: var(--warn); }
+.badge.avoid,
+.badge.danger { color: var(--danger); }
+.shortlist-card .ticker-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: baseline;
+}
+.shortlist-card .ticker-line strong {
+  font-size: 1.15rem;
+}
+.shortlist-card p,
+.area-card p,
+.provider-card p,
+.timeline-card p,
+.leaderboard-card p {
+  color: var(--ink-soft);
+}
+.matrix {
+  display: grid;
+  gap: 12px;
+}
+.matrix-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.9fr) minmax(0, 1.4fr) minmax(120px, 0.8fr);
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.matrix-row:last-child { border-bottom: 0; }
+.table-card {
+  overflow-x: auto;
+}
+.comparison-table td strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+.comparison-table td span {
+  display: block;
+  color: var(--ink-faint);
+  font-size: 0.88rem;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+th, td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  color: var(--ink-faint);
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+tbody tr:last-child td { border-bottom: 0; }
+.leaderboard-list {
+  display: grid;
+  gap: 10px;
+}
+.leaderboard-item {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.leaderboard-item:last-child { border-bottom: 0; }
+.leaderboard-rank {
+  color: var(--ink-faint);
+  font-weight: 700;
+}
+.leaderboard-value {
+  text-align: right;
+  color: var(--ink);
+  font-weight: 700;
+}
+.leaderboard-sub {
+  display: block;
+  color: var(--ink-faint);
+  font-size: 0.88rem;
+  margin-top: 2px;
+}
+.timeline-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
+}
+.callout {
+  border-left: 3px solid var(--accent);
+  padding-left: 14px;
+  margin: 12px 0;
+}
+.footer-note {
+  margin-top: 24px;
+  color: var(--ink-faint);
+  font-size: 0.92rem;
+}
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .shell { width: min(100vw - 20px, 1240px); padding-top: 16px; }
+  .topbar { border-radius: 24px; }
+  .hero { padding: 24px 20px; }
+  .hero-stats,
+  .stats-grid,
+  .card-grid,
+  .rank-grid { grid-template-columns: 1fr; }
+  .matrix-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+</style>
 </head>
 <body>
-  <main>
-    <p><a href="index.html">← Back to tracker</a></p>
-    <h1>User-Level Inference Demand Map</h1>
-    <p class="muted">A practical framework for estimating how inference demand scales from individual users and mapping the value chain winners.</p>
-    <section class="card">
-      <h2>2-Year Demand Framing</h2>
+  <main class="shell">
+    
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark"></span> AI Inference Investment Tracker</div>
+      <nav class="tabs"><a class='tab' href='index.html'>Home</a><a class='tab active' href='user-demand.html'>Inference Demand</a><a class='tab' href='tracker.md'>Tracker Notes</a><a class='tab' href='daily-summary.md'>Daily Summary</a></nav>
+    </header>
+    
+    
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">Inference Demand Dashboard</div>
+        <h1>Inference Demand Dashboard</h1>
+        <p>A practical framework for estimating how inference demand scales from individual users and mapping the value chain winners.</p>
+        <div class="hero-meta">
+          <span class="pill">Updated 2026-03-30</span>
+          <span class="pill">Total processed tokens</span>
+        </div>
+      </div>
+      <section class="card">
+        <div class="eyebrow">Metric Standard</div>
+        <h3>Total processed tokens</h3>
+        <p>Use total input plus output tokens as the primary inference-demand metric. When a provider discloses token throughput instead of totals, track tokens per minute separately. When only messages are disclosed, estimate token-equivalents with a clearly labeled range.</p>
+        <p class="muted">Tokens processed is the cleanest bridge between user demand, model throughput, infrastructure load, and provider monetization.</p>
+      </section>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Headline Metrics</h2>
+          <p>Best currently available read-throughs for real-world inference demand.</p>
+        </div>
+      </div>
+      <div class="grid stats-grid">
+            <section class="stat-card">
+              <div class="eyebrow">OpenRouter monthly tokens</div>
+              <div class="stat-value">30T</div>
+              <p class="muted">Current platform-wide monthly volume on OpenRouter&#x27;s public rankings/state-of-AI pages.</p>
+            </section>
+            
+            <section class="stat-card">
+              <div class="eyebrow">Gemini monthly tokens</div>
+              <div class="stat-value">980T+</div>
+              <p class="muted">Google said Gemini was processing more than 980 trillion monthly tokens by July 2025.</p>
+            </section>
+            
+            <section class="stat-card">
+              <div class="eyebrow">OpenAI daily messages</div>
+              <div class="stat-value">2.63B</div>
+              <p class="muted">OpenAI research reported 2.627 billion daily ChatGPT messages in June 2025.</p>
+            </section>
+            
+            <section class="stat-card">
+              <div class="eyebrow">OpenAI weekly users</div>
+              <div class="stat-value">800M+</div>
+              <p class="muted">OpenAI said ChatGPT had more than 800 million weekly users by November 2025.</p>
+            </section>
+            </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Comparable Demand Tape</h2>
+          <p>Standardize everything to total processed tokens when possible, then make the estimation quality explicit.</p>
+        </div>
+      </div>
+      
+    <section class="card table-card comparison-table">
       <table>
         <thead>
-          <tr><th>Segment</th><th>Today</th><th>2-Year View</th><th>Notes</th></tr>
+          <tr>
+            <th>Provider</th>
+            <th>Standardized Lens</th>
+            <th>Evidence Type</th>
+            <th>WoW</th>
+            <th>MoM</th>
+            <th>YoY</th>
+            <th>Confidence</th>
+          </tr>
+        </thead>
+        <tbody><tr><td><strong>OpenRouter</strong><span>Best transparent marketplace tape, but not the whole industry.</span></td><td>30T monthly tokens</td><td>Direct tokens</td><td>Starts once snapshot archive is live</td><td>Starts once monthly archive is live</td><td>n/a</td><td><span class='badge high'>high</span></td></tr><tr><td><strong>Google / Gemini</strong><span>Cleanest big-lab token disclosure currently available.</span></td><td>980T+ monthly tokens</td><td>Direct reported tokens</td><td>n/a</td><td>+104% versus May 2025</td><td>+4,849% versus May 2024</td><td><span class='badge high'>high</span></td></tr><tr><td><strong>OpenAI / ChatGPT</strong><span>Direct token disclosure is sparse, so scale is inferred from messages and users.</span></td><td>~79T monthly token-equivalent (base case)</td><td>Estimated from message volume</td><td>n/a</td><td>+20% versus July 2025 daily messages</td><td>+482% versus June 2024 daily messages</td><td><span class='badge medium'>medium</span></td></tr><tr><td><strong>Anthropic / Claude</strong><span>Likely much larger in reality, but first-party total token figures are not public.</span></td><td>&gt;=8.8T monthly floor</td><td>OpenRouter floor plus official proxies</td><td>Pending archive</td><td>n/a</td><td>n/a</td><td><span class='badge low-to-medium'>low-to-medium</span></td></tr></tbody>
+      </table>
+    </section>
+    
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Tracking Cadence</h2>
+          <p>The operating rhythm for turning this from a one-off memo into a durable demand dashboard.</p>
+        </div>
+      </div>
+      <div class="grid tracking-grid">
+            <section class="card">
+              <div class="meta-row">
+                <span class='badge'>Weekly</span>
+                <span class='badge live-now'>Live now</span>
+              </div>
+              <h3>OpenRouter live tape</h3>
+              <p>Top models, author share, top apps, and total marketplace token flow</p>
+            </section>
+            
+            <section class="card">
+              <div class="meta-row">
+                <span class='badge'>Monthly</span>
+                <span class='badge partial-coverage'>Partial coverage</span>
+              </div>
+              <h3>Direct provider token and throughput disclosures</h3>
+              <p>Gemini monthly tokens, OpenRouter monthly totals, any new lab token disclosures</p>
+            </section>
+            
+            <section class="card">
+              <div class="meta-row">
+                <span class='badge'>Quarterly</span>
+                <span class='badge high-value-proxy-layer'>High-value proxy layer</span>
+              </div>
+              <h3>Users, seats, customers, capex, and revenue read-throughs</h3>
+              <p>OpenAI users and seats, hyperscaler capex, cloud AI monetization signals</p>
+            </section>
+            
+            <section class="card">
+              <div class="meta-row">
+                <span class='badge'>Annual</span>
+                <span class='badge context-and-calibration'>Context and calibration</span>
+              </div>
+              <h3>Economic-index and research datasets</h3>
+              <p>OpenAI usage papers, Anthropic Economic Index, marketplace retrospectives</p>
+            </section>
+            </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>What the Industry Tracks</h2>
+          <p>Use the strongest metric available for each provider, then layer weaker proxies only when direct tokens are unavailable.</p>
+        </div>
+      </div>
+      <div class="grid card-grid">
+            <section class="card">
+              <div class="meta-row">
+                <span class='badge'>Best</span>
+              </div>
+              <h3>Direct processed tokens</h3>
+              <p>Closest to actual inference compute served. Prefer monthly or weekly totals from provider disclosures or marketplace rankings.</p>
+            </section>
+            
+            <section class="card">
+              <div class="meta-row">
+                <span class='badge'>Best when totals are absent</span>
+              </div>
+              <h3>Token throughput</h3>
+              <p>Useful when companies publish tokens per minute or similar throughput rates instead of period totals.</p>
+            </section>
+            
+            <section class="card">
+              <div class="meta-row">
+                <span class='badge'>Proxy</span>
+              </div>
+              <h3>Messages or requests</h3>
+              <p>A strong demand read-through when token totals are not available, but requires a token-per-message assumption.</p>
+            </section>
+            
+            <section class="card">
+              <div class="meta-row">
+                <span class='badge'>Adoption</span>
+              </div>
+              <h3>Users, seats, and customers</h3>
+              <p>Shows how broadly inference products are diffusing across consumer and enterprise surfaces.</p>
+            </section>
+            
+            <section class="card">
+              <div class="meta-row">
+                <span class='badge'>Economic confirmation</span>
+              </div>
+              <h3>Revenue, capex, and utilization</h3>
+              <p>Confirms that token growth is translating into spending power and infrastructure demand.</p>
+            </section>
+            </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>OpenRouter Live Tape</h2>
+          <p>Public marketplace data is the closest thing we have to a transparent weekly demand tape.</p>
+        </div>
+        <p class="muted">Captured on 2026-03-30</p>
+      </div>
+      <div class="grid card-grid">
+        
+    <section class="leaderboard-card">
+      <h3>OpenRouter Top Models</h3>
+      <div class="leaderboard-list">
+            <div class="leaderboard-item">
+              <div class="leaderboard-rank">1.</div>
+              <div>
+                <strong>MiMo-V2-Pro</strong>
+                <span class="leaderboard-sub">xiaomi</span>
+              </div>
+              <div class="leaderboard-value">4.19T</div>
+            </div>
+            
+            <div class="leaderboard-item">
+              <div class="leaderboard-rank">5.</div>
+              <div>
+                <strong>Claude Sonnet 4.6</strong>
+                <span class="leaderboard-sub">anthropic</span>
+              </div>
+              <div class="leaderboard-value">1.04T</div>
+            </div>
+            
+            <div class="leaderboard-item">
+              <div class="leaderboard-rank">6.</div>
+              <div>
+                <strong>Claude Opus 4.6</strong>
+                <span class="leaderboard-sub">anthropic</span>
+              </div>
+              <div class="leaderboard-value">987B</div>
+            </div>
+            
+            <div class="leaderboard-item">
+              <div class="leaderboard-rank">7.</div>
+              <div>
+                <strong>Gemini 3 Flash Preview</strong>
+                <span class="leaderboard-sub">google</span>
+              </div>
+              <div class="leaderboard-value">976B</div>
+            </div>
+            
+            <div class="leaderboard-item">
+              <div class="leaderboard-rank">10.</div>
+              <div>
+                <strong>Grok 4.1 Fast</strong>
+                <span class="leaderboard-sub">x-ai</span>
+              </div>
+              <div class="leaderboard-value">628B</div>
+            </div>
+            </div>
+    </section>
+    
+        
+    <section class="leaderboard-card">
+      <h3>Author Share</h3>
+      <div class="leaderboard-list">
+            <div class="leaderboard-item">
+              <div class="leaderboard-rank">1.</div>
+              <div>
+                <strong>xiaomi</strong>
+                <span class="leaderboard-sub">25.3%</span>
+              </div>
+              <div class="leaderboard-value">1.67T</div>
+            </div>
+            
+            <div class="leaderboard-item">
+              <div class="leaderboard-rank">2.</div>
+              <div>
+                <strong>google</strong>
+                <span class="leaderboard-sub">12.1%</span>
+              </div>
+              <div class="leaderboard-value">800B</div>
+            </div>
+            
+            <div class="leaderboard-item">
+              <div class="leaderboard-rank">3.</div>
+              <div>
+                <strong>anthropic</strong>
+                <span class="leaderboard-sub">11.2%</span>
+              </div>
+              <div class="leaderboard-value">736B</div>
+            </div>
+            
+            <div class="leaderboard-item">
+              <div class="leaderboard-rank">4.</div>
+              <div>
+                <strong>openai</strong>
+                <span class="leaderboard-sub">8.2%</span>
+              </div>
+              <div class="leaderboard-value">541B</div>
+            </div>
+            </div>
+    </section>
+    
+        
+    <section class="leaderboard-card">
+      <h3>Top Apps</h3>
+      <div class="leaderboard-list">
+            <div class="leaderboard-item">
+              <div class="leaderboard-rank">1.</div>
+              <div>
+                <strong>OpenClaw</strong>
+                <span class="leaderboard-sub">874B today</span>
+              </div>
+              <div class="leaderboard-value">874B today</div>
+            </div>
+            
+            <div class="leaderboard-item">
+              <div class="leaderboard-rank">2.</div>
+              <div>
+                <strong>Kilo Code</strong>
+                <span class="leaderboard-sub">291B today</span>
+              </div>
+              <div class="leaderboard-value">291B today</div>
+            </div>
+            
+            <div class="leaderboard-item">
+              <div class="leaderboard-rank">3.</div>
+              <div>
+                <strong>Claude Code</strong>
+                <span class="leaderboard-sub">110B today</span>
+              </div>
+              <div class="leaderboard-value">110B today</div>
+            </div>
+            
+            <div class="leaderboard-item">
+              <div class="leaderboard-rank">4.</div>
+              <div>
+                <strong>Cline</strong>
+                <span class="leaderboard-sub">73.5B today</span>
+              </div>
+              <div class="leaderboard-value">73.5B today</div>
+            </div>
+            </div>
+    </section>
+    
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Provider Scorecards</h2>
+          <p>Direct tokens where possible, throughput second, and estimated token-equivalents only when we have to.</p>
+        </div>
+      </div>
+      <div class="grid card-grid">
+            <section class="card provider-card">
+              <div class="meta-row">
+                <span class='badge high'>high</span>
+                <span class='badge'>Direct tokens and model-level weekly usage</span>
+              </div>
+              <h3>OpenRouter</h3>
+              <p>Weekly token volumes by model and app are publicly visible.</p>
+              <div class="callout">
+                <strong>Public monthly volume</strong>
+                <p>30T · 2026-03-30</p>
+                <p class="muted">Need weekly snapshots to compute platform WoW and MoM cleanly.</p>
+              </div>
+              <section class="table-card">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Metric</th>
+                      <th>Value</th>
+                      <th>Growth</th>
+                    </tr>
+                  </thead>
+                  <tbody><tr><td>2025-11-30</td><td>Study dataset size</td><td>100T+ tokens over 13 months</td><td>n/a</td></tr><tr><td>2026-03-30</td><td>Public monthly volume</td><td>30T</td><td>n/a</td></tr><tr><td>2026-03-30</td><td>Tracked user base</td><td>5M+ users</td><td>n/a</td></tr></tbody>
+                </table>
+              </section>
+              
+              <ul class="bullet-list"><li>Best publicly accessible weekly token leaderboard across frontier and open models.</li><li>Useful as a live inference-demand tape even though it represents marketplace traffic rather than the whole industry.</li><li>Can support true WoW and MoM growth tracking once we start persisting snapshots.</li></ul>
+              <ul class='compact-list'><li><a href='https://openrouter.ai/rankings' target='_blank' rel='noreferrer'>OpenRouter rankings</a></li><li><a href='https://openrouter.ai/state-of-ai' target='_blank' rel='noreferrer'>OpenRouter State of AI</a></li></ul>
+            </section>
+            
+            <section class="card provider-card">
+              <div class="meta-row">
+                <span class='badge high'>high</span>
+                <span class='badge'>Direct tokens, token throughput, MAU, and developer adoption</span>
+              </div>
+              <h3>Google / Gemini</h3>
+              <p>Google is the cleanest big-lab source for direct token throughput disclosures.</p>
+              <div class="callout">
+                <strong>Direct API throughput</strong>
+                <p>10B tokens/min · 2026-02-04</p>
+                <p class="muted">+42.9% versus 7B tokens/min in Q3 2025.</p>
+              </div>
+              <section class="table-card">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Metric</th>
+                      <th>Value</th>
+                      <th>Growth</th>
+                    </tr>
+                  </thead>
+                  <tbody><tr><td>2024-05-14</td><td>Monthly tokens processed</td><td>9.7T</td><td>Baseline</td></tr><tr><td>2025-05-20</td><td>Monthly tokens processed</td><td>480T+</td><td>+4,849% YoY versus May 2024</td></tr><tr><td>2025-07-23</td><td>Monthly tokens processed</td><td>980T+</td><td>+104% versus May 2025</td></tr><tr><td>2025-10-29</td><td>Direct API throughput</td><td>7B tokens/min</td><td>Baseline for Q3 2025</td></tr><tr><td>2026-02-04</td><td>Direct API throughput</td><td>10B tokens/min</td><td>+42.9% versus Q3 2025</td></tr><tr><td>2025-05-20</td><td>Gemini app MAU</td><td>400M+</td><td>Baseline</td></tr><tr><td>2025-10-29</td><td>Gemini app MAU</td><td>650M+</td><td>+62.5% versus May 2025</td></tr><tr><td>2026-02-04</td><td>Gemini app MAU</td><td>750M+</td><td>+15.4% versus Q3 2025</td></tr></tbody>
+                </table>
+              </section>
+              
+              <ul class="bullet-list"><li>Google gives the strongest first-party token metrics among the major labs.</li><li>The jump from 9.7T to 480T+ to 980T+ monthly tokens is one of the clearest public inference-demand curves in the market.</li><li>Direct API throughput and MAU let us separate developer demand from consumer adoption.</li></ul>
+              <ul class='compact-list'><li><a href='https://blog.google/technology/ai/io-2025-keynote/' target='_blank' rel='noreferrer'>Google I/O 2025 keynote recap</a></li><li><a href='https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q3-2025/' target='_blank' rel='noreferrer'>Alphabet Q3 2025 message from the CEO</a></li><li><a href='https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q4-2025/' target='_blank' rel='noreferrer'>Alphabet Q4 2025 message from the CEO</a></li></ul>
+            </section>
+            
+            <section class="card provider-card">
+              <div class="meta-row">
+                <span class='badge medium'>medium</span>
+                <span class='badge'>Messages, users, seats, and estimated token-equivalent throughput</span>
+              </div>
+              <h3>OpenAI / ChatGPT</h3>
+              <p>OpenAI discloses scale through message counts and user growth more than token totals.</p>
+              <div class="callout">
+                <strong>Weekly users</strong>
+                <p>800M+ · 2025-11-05</p>
+                <p class="muted">+14.3% versus 700M+ by July 2025.</p>
+              </div>
+              <section class="table-card">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Metric</th>
+                      <th>Value</th>
+                      <th>Growth</th>
+                    </tr>
+                  </thead>
+                  <tbody><tr><td>2024-06-26</td><td>Daily ChatGPT messages</td><td>451M</td><td>Baseline</td></tr><tr><td>2025-06-26</td><td>Daily ChatGPT messages</td><td>2.627B</td><td>+482% YoY</td></tr><tr><td>2025-07-22</td><td>Daily messages across OpenAI tools</td><td>2.5B+</td><td>In line with June 2025 research</td></tr><tr><td>2025-08-01</td><td>Daily messages globally</td><td>3B</td><td>+20% versus July 2025</td></tr><tr><td>2025-07-01</td><td>Weekly active users</td><td>700M+</td><td>Baseline</td></tr><tr><td>2025-11-05</td><td>Weekly active users</td><td>800M+</td><td>+14.3% versus July 2025</td></tr><tr><td>2025-11-05</td><td>Paid business customers</td><td>1M+</td><td>n/a</td></tr><tr><td>2025-11-05</td><td>ChatGPT for Work seats</td><td>7M+</td><td>n/a</td></tr></tbody>
+                </table>
+              </section>
+              
+            <div class="callout">
+              <strong>Estimated token-equivalent range</strong>
+              <p>Directional estimate only: multiply 2.627B daily messages by 300 to 1,500 total tokens per message to represent a consumer-to-heavy-workload band.</p>
+              <p><strong>Low:</strong> 0.79T / day
+              <strong>Base:</strong> 2.63T / day
+              <strong>High:</strong> 3.94T / day</p>
+              <p class="muted">Use as a framing range, not a precise valuation input.</p>
+            </div>
+            
+              <ul class="bullet-list"><li>OpenAI is enormous on user and message volume, but still relatively sparse on direct token-throughput disclosures.</li><li>Message growth and seat growth make OpenAI one of the best demand proxies even when the token math must be estimated.</li><li>The token-equivalent range is directionally useful for comparing scale with disclosed token metrics from Google and OpenRouter.</li></ul>
+              <ul class='compact-list'><li><a href='https://cdn.openai.com/pdf/a253471f-8260-40c6-a2cc-aa93fe9f142e/economic-research-chatgpt-usage-paper.pdf' target='_blank' rel='noreferrer'>ChatGPT usage and adoption patterns at work</a></li><li><a href='https://cdn.openai.com/pdf/3c7f7e1b-36c4-446b-916c-11183e4266b7/chatgpt-usage-and-adoption-patterns-at-work.pdf' target='_blank' rel='noreferrer'>How people use ChatGPT</a></li><li><a href='https://cdn.openai.com/global-affairs/61b341bc-56eb-46dc-b356-a621e02cb82d/openai-australia-economic-blueprint-july-2025.pdf' target='_blank' rel='noreferrer'>OpenAI Australia economic blueprint</a></li><li><a href='https://openai.com/index/one-million-business-users/' target='_blank' rel='noreferrer'>One million business users</a></li></ul>
+            </section>
+            
+            <section class="card provider-card">
+              <div class="meta-row">
+                <span class='badge low-to-medium'>low-to-medium</span>
+                <span class='badge'>Usage-composition proxies and marketplace token floors</span>
+              </div>
+              <h3>Anthropic / Claude</h3>
+              <p>Anthropic publishes strong usage-quality data, but not direct system-wide token totals.</p>
+              <div class="callout">
+                <strong>OpenRouter floor</strong>
+                <p>2.03T/week · 2026-03-30</p>
+                <p class="muted">Observed from Claude Sonnet 4.6 plus Claude Opus 4.6 on OpenRouter rankings.</p>
+              </div>
+              <section class="table-card">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Metric</th>
+                      <th>Value</th>
+                      <th>Growth</th>
+                    </tr>
+                  </thead>
+                  <tbody><tr><td>2025-02-10</td><td>Occupations with AI use in at least 25% of tasks</td><td>36%</td><td>Baseline</td></tr><tr><td>2025-02-10</td><td>Occupations with AI use in at least 75% of tasks</td><td>4%</td><td>Baseline</td></tr><tr><td>2025-02-10</td><td>Augmentation share</td><td>57%</td><td>Baseline</td></tr><tr><td>2025-02-10</td><td>Automation share</td><td>43%</td><td>Baseline</td></tr><tr><td>2026-01-15</td><td>Economic Index dataset cadence</td><td>Millions of anonymized Claude conversations</td><td>Longitudinal tracking, not token totals</td></tr></tbody>
+                </table>
+              </section>
+              
+              <ul class="bullet-list"><li>Anthropic is excellent for seeing what Claude is used for, especially the shift toward coding and enterprise automation.</li><li>For total-demand sizing, Anthropic needs to be treated as a partial-information case.</li><li>The best near-term approach is to track Claude&#x27;s OpenRouter token floor and pair it with Anthropic&#x27;s official Economic Index updates.</li></ul>
+              <ul class='compact-list'><li><a href='https://www.anthropic.com/news/the-anthropic-economic-index/' target='_blank' rel='noreferrer'>The Anthropic Economic Index</a></li><li><a href='https://www.anthropic.com/economic-index/' target='_blank' rel='noreferrer'>Anthropic Economic Index hub</a></li><li><a href='https://www.anthropic.com/research/anthropic-economic-index-september-2025-report/' target='_blank' rel='noreferrer'>Anthropic Economic Index report: Uneven geographic and enterprise AI adoption</a></li><li><a href='https://www.anthropic.com/news/impact-software-development' target='_blank' rel='noreferrer'>Anthropic Economic Index: AI&#x27;s impact on software development</a></li></ul>
+            </section>
+            </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>User-Level Demand Framing</h2>
+          <p>How personal, professional, and agentic usage can scale into much larger token budgets per user.</p>
+        </div>
+      </div>
+      
+    <section class="card table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Segment</th>
+            <th>Today</th>
+            <th>2-Year View</th>
+            <th>Notes</th>
+          </tr>
         </thead>
         <tbody><tr><td>Knowledge workers (copilot usage)</td><td>~5k-20k tokens/user/day equivalent</td><td>~50k-250k tokens/user/day as copilots become always-on</td><td>Driven by draft/rewrite/search workflows, meeting copilots, and agent handoffs.</td></tr><tr><td>Analysts &amp; developers (heavy users)</td><td>~50k-300k tokens/user/day</td><td>~0.5M-3M tokens/user/day with agent loops and code/test automation</td><td>Reasoning chains plus tool-calling can increase inference per task by 5-20x.</td></tr><tr><td>Personal assistant consumers</td><td>~1k-10k tokens/user/day for chat-style interactions</td><td>~20k-150k tokens/user/day with voice, memory, and multimodal assistants</td><td>Ambient assistant patterns can create many low-latency sessions throughout the day.</td></tr></tbody>
       </table>
     </section>
-    <section class="card">
-      <h2>Practical Proxies You Can Track Now</h2>
-      <ul><li><strong>Model API revenue growth and token disclosures:</strong> Direct read-through for paid inference demand and pricing trends.</li><li><strong>Hyperscaler AI capex plus inference commentary:</strong> If inference is scaling faster than efficiency gains, infra spend remains elevated.</li><li><strong>Enterprise seat penetration of AI copilots:</strong> Seat growth is the cleanest adoption proxy for knowledge-worker demand.</li><li><strong>GPU cloud utilization / spot pricing:</strong> Tight utilization indicates sustained demand at current supply.</li><li><strong>Utility and grid interconnection disclosures tied to data centers:</strong> Second-order validation that compute demand is persisting physically.</li></ul>
+    
     </section>
-    <section class="card">
-      <h2>Who Benefits If This Is Right</h2>
-      <ul><li><strong>Model + platform companies:</strong> OpenAI ecosystem, Anthropic ecosystem, hyperscaler model platforms — Capture usage revenue first, but margins depend on inference efficiency and distribution strength.</li><li><strong>Compute and networking suppliers:</strong> NVIDIA, AMD, Broadcom, Arista, optics suppliers — Benefit when token demand growth outpaces cost/token declines.</li><li><strong>Power and thermal infrastructure:</strong> Vertiv, Eaton, Trane and electrical chain — Monetize the physical bottlenecks needed to serve larger inference loads.</li><li><strong>Application wrappers and workflow incumbents:</strong> Microsoft, Google, Salesforce, ServiceNow, vertical SaaS leaders — Win where distribution and workflow integration convert inference into sticky ARR.</li><li><strong>Second-order grid and industrial beneficiaries:</strong> Utilities, generation, transmission, engineering services — Upside appears with lag but can persist if AI demand translates into long-cycle capex.</li></ul>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Practical Proxies</h2>
+          <p>Signals to track daily or weekly even when direct provider token data is sparse.</p>
+        </div>
+      </div>
+      <section class="card"><ul class="bullet-list"><li><strong>Model API revenue growth and token disclosures:</strong> Direct read-through for paid inference demand and pricing trends.</li><li><strong>Hyperscaler AI capex plus inference commentary:</strong> If inference is scaling faster than efficiency gains, infra spend remains elevated.</li><li><strong>Enterprise seat penetration of AI copilots:</strong> Seat growth is the cleanest adoption proxy for knowledge-worker demand.</li><li><strong>GPU cloud utilization / spot pricing:</strong> Tight utilization indicates sustained demand at current supply.</li><li><strong>Utility and grid interconnection disclosures tied to data centers:</strong> Second-order validation that compute demand is persisting physically.</li></ul></section>
     </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Beneficiary Stack</h2>
+          <p>If this demand curve persists, these are the layers most likely to capture value.</p>
+        </div>
+      </div>
+      <section class="card"><ul class="bullet-list"><li><strong>Model + platform companies:</strong> OpenAI ecosystem, Anthropic ecosystem, hyperscaler model platforms — Capture usage revenue first, but margins depend on inference efficiency and distribution strength.</li><li><strong>Compute and networking suppliers:</strong> NVIDIA, AMD, Broadcom, Arista, optics suppliers — Benefit when token demand growth outpaces cost/token declines.</li><li><strong>Power and thermal infrastructure:</strong> Vertiv, Eaton, Trane and electrical chain — Monetize the physical bottlenecks needed to serve larger inference loads.</li><li><strong>Application wrappers and workflow incumbents:</strong> Microsoft, Google, Salesforce, ServiceNow, vertical SaaS leaders — Win where distribution and workflow integration convert inference into sticky ARR.</li><li><strong>Second-order grid and industrial beneficiaries:</strong> Utilities, generation, transmission, engineering services — Upside appears with lag but can persist if AI demand translates into long-cycle capex.</li></ul></section>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Source Library</h2>
+          <p>Official references and primary documents used in the dashboard.</p>
+        </div>
+      </div>
+      <section class="card"><ul class='source-list'><li><a href='https://openrouter.ai/rankings' target='_blank' rel='noreferrer'>OpenRouter rankings</a></li><li><a href='https://openrouter.ai/state-of-ai' target='_blank' rel='noreferrer'>OpenRouter State of AI</a></li><li><a href='https://blog.google/technology/ai/io-2025-keynote/' target='_blank' rel='noreferrer'>Google I/O 2025 keynote recap</a></li><li><a href='https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q3-2025/' target='_blank' rel='noreferrer'>Alphabet Q3 2025 message from the CEO</a></li><li><a href='https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q4-2025/' target='_blank' rel='noreferrer'>Alphabet Q4 2025 message from the CEO</a></li><li><a href='https://cdn.openai.com/pdf/a253471f-8260-40c6-a2cc-aa93fe9f142e/economic-research-chatgpt-usage-paper.pdf' target='_blank' rel='noreferrer'>ChatGPT usage and adoption patterns at work</a></li><li><a href='https://cdn.openai.com/pdf/3c7f7e1b-36c4-446b-916c-11183e4266b7/chatgpt-usage-and-adoption-patterns-at-work.pdf' target='_blank' rel='noreferrer'>How people use ChatGPT</a></li><li><a href='https://openai.com/index/one-million-business-users/' target='_blank' rel='noreferrer'>One million business users</a></li><li><a href='https://www.anthropic.com/news/the-anthropic-economic-index/' target='_blank' rel='noreferrer'>The Anthropic Economic Index</a></li><li><a href='https://www.anthropic.com/economic-index/' target='_blank' rel='noreferrer'>Anthropic Economic Index hub</a></li></ul></section>
+    </section>
+    
   </main>
 </body>
 </html>

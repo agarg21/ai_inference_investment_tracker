@@ -1,6 +1,6 @@
 # AI Inference Inflection Research
 
-- Updated on: **2026-03-29**
+- Updated on: **2026-03-30**
 - Stance: **Bullish on infrastructure and systems; selective on direct app-layer beneficiaries.**
 
 ## Summary
@@ -9,15 +9,14 @@ The core thesis is that AI inference is moving from a sidecar workload to the do
 
 ## Dashboard Snapshot
 
-- **Current Focus**: Power, Cooling and Electrical Infrastructure, Inference Platforms and Accelerated Compute, Networking, Fabrics and Optics
-- **High-Conviction Names**: VRT, ETN, NVDA, AMZN, GOOGL
-- **Open Predictions**: 4
-- **Shortlist Mix**: core 9, second_order 3
+- **Current Focus**: Power, Cooling and Electrical Infrastructure, Inference Platforms and Accelerated Compute, Networking, Fabrics and Optics — Highest-ranked areas right now
+- **High-Conviction Names**: VRT, ETN, NVDA, AMZN, GOOGL — core 9, second_order 3
+- **Open Predictions**: 4 — Hypotheses still being tested
+- **OpenRouter monthly tokens**: 30T — Fresh demand read-through
 
 ## Ranked Areas
 
 ### 1. Power, Cooling and Electrical Infrastructure
-
 - Bucket: **core**
 - Why now: GTC 2026 pushed AI factories as physical infrastructure governed by tokens per watt, heat rejection, power conversion and factory-level resilience.
 - Public names: VRT, ETN, TT, HUBB
@@ -25,7 +24,6 @@ The core thesis is that AI inference is moving from a sidecar workload to the do
 - Main risk: Supply-chain catch-up compresses pricing or demand shifts from centralized to cheaper edge form factors faster than expected.
 
 ### 2. Inference Platforms and Accelerated Compute
-
 - Bucket: **core**
 - Why now: Hyperscalers and NVIDIA are already seeing massive token demand and are still raising AI infrastructure spending.
 - Public names: NVDA, AMZN, GOOGL, MSFT
@@ -33,7 +31,6 @@ The core thesis is that AI inference is moving from a sidecar workload to the do
 - Main risk: Inference economics commoditize faster than expected or custom silicon shifts profit pools away from the obvious winners.
 
 ### 3. Networking, Fabrics and Optics
-
 - Bucket: **core**
 - Why now: NVIDIA is packaging inference as rack-scale and factory-scale infrastructure, which keeps interconnect and switching on the critical path.
 - Public names: AVGO, ANET, MRVL, LITE, COHR
@@ -41,7 +38,6 @@ The core thesis is that AI inference is moving from a sidecar workload to the do
 - Main risk: Inference becomes much more localized and memory-efficient, reducing the need for expensive fabric upgrades.
 
 ### 4. Memory, Packaging and Advanced Semiconductor Manufacturing
-
 - Bucket: **core**
 - Why now: Reasoning-heavy inference raises the value of bandwidth, memory footprint and advanced packaging rather than reducing them.
 - Public names: MU, AMAT, KLAC, ASML, TSM
@@ -49,7 +45,6 @@ The core thesis is that AI inference is moving from a sidecar workload to the do
 - Main risk: A sharp efficiency improvement lowers the memory intensity of inference or causes a fast mix shift away from the current packaging stack.
 
 ### 5. Generation, Grid Flexibility and Transmission
-
 - Bucket: **second_order**
 - Why now: Inference growth keeps pulling on electricity demand and NVIDIA is now explicitly discussing flexible AI factories as grid assets.
 - Public names: CEG, VST, NRG, GEV, FE, AEP, ETR
@@ -57,7 +52,6 @@ The core thesis is that AI inference is moving from a sidecar workload to the do
 - Main risk: Interconnection delays, politics and customer concentration make these names look better in theory than in realized earnings.
 
 ### 6. AI-Native Storage and Context Layer
-
 - Bucket: **second_order**
 - Why now: GTC elevated storage more than many investors expected, which fits longer-context models, retrieval and agentic workflows.
 - Public names: DELL, HPE, NTAP
@@ -65,7 +59,6 @@ The core thesis is that AI inference is moving from a sidecar workload to the do
 - Main risk: The value accrues to private startups and hyperscaler in-house stacks instead of public incumbents.
 
 ### 7. Industrial Software, Digital Twins and AI-Factory Buildout
-
 - Bucket: **second_order**
 - Why now: NVIDIA is explicitly tying Omniverse and digital-twin workflows to AI factory design and optimization.
 - Public names: PTC, J, PCOR
@@ -73,7 +66,6 @@ The core thesis is that AI inference is moving from a sidecar workload to the do
 - Main risk: This becomes a services layer with weak pricing power rather than a software margin story.
 
 ### 8. Distributed AI Grids and Telecom
-
 - Bucket: **speculative**
 - Why now: GTC 2026 also pushed AI grids and distributed orchestration, which opens a path for telecom and edge infrastructure but is earlier and harder to underwrite.
 - Public names: TMUS, VZ, T
@@ -152,6 +144,13 @@ The core thesis is that AI inference is moving from a sidecar workload to the do
 
 ## Research History
 
+### 2026-03-30 - Promoted demand tracking to a first-class dashboard
+
+The research site now separates the narrative thesis from a more operational demand dashboard focused on measurable inference signals.
+
+- Added a dedicated inference-demand dashboard page with provider scorecards and metric methodology.
+- Shifted the homepage toward a stronger product-style layout with clearer navigation between thesis and demand.
+
 ### 2026-03-29 - Refocused around inference
 
 The research base moved from a narrower utility-event lens to the broader AI inference inflection thesis anchored in Jensen Huang's comments, hyperscaler capex, and GTC 2026 messaging.
@@ -172,4 +171,3 @@ Predictions now capture what would confirm or falsify the thesis so daily update
 
 - Added explicit open predictions around capex, infrastructure winners, networking and memory bottlenecks, and utility-event tradability.
 - Prepared the site for daily summaries and visible research-history updates.
-
