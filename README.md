@@ -92,10 +92,13 @@ This writes:
 - `data/outputs/trade_cards.csv`
 - `data/outputs/validation_report.md`
 - `data/inference_thesis_watchlist.json`
+- `data/inference_demand_dashboard.json`
 - `data/outputs/inference_tracker.html`
 - `data/outputs/inference_tracker.md`
 - `site/index.html`
 - `site/tracker.md`
+- `site/user-demand.html`
+- `site/user-demand.md`
 - `site/daily-summary.md`
 - `data/charts/*.png`
 

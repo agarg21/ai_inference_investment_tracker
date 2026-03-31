@@ -1,0 +1,26 @@
+{
+  "name": "ai_inference_investment_tracker",
+  "version": "1.0.0",
+  "description": "Local-first Codex research workspace for the AI inference inflection thesis, with publishable static outputs.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agarg21/ai_inference_investment_tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/agarg21/ai_inference_investment_tracker/issues"
+  },
+  "homepage": "https://github.com/agarg21/ai_inference_investment_tracker#readme",
+  "dependencies": {
+    "playwright": "^1.58.2"
+  }
+}
