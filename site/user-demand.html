@@ -89,6 +89,9 @@ a:hover { text-decoration: underline; }
   border: 1px solid transparent;
   background: rgba(255, 255, 255, 0.04);
   font-weight: 600;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-align: center;
 }
 .tab.active {
   color: #07101e;
@@ -145,6 +148,8 @@ a:hover { text-decoration: underline; }
   color: var(--ink-soft);
   border: 1px solid var(--line);
   font-size: 0.92rem;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 .hero-side {
   display: grid;
@@ -203,6 +208,7 @@ a:hover { text-decoration: underline; }
   font-size: clamp(1.4rem, 3vw, 2.2rem);
   font-weight: 800;
   letter-spacing: -0.03em;
+  overflow-wrap: anywhere;
 }
 .muted { color: var(--ink-faint); }
 .section {
@@ -253,6 +259,8 @@ a:hover { text-decoration: underline; }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 .badge.core { color: var(--accent); }
 .badge.second_order { color: #cdb8ff; }
@@ -345,6 +353,7 @@ tbody tr:last-child td { border-bottom: 0; }
   text-align: right;
   color: var(--ink);
   font-weight: 700;
+  overflow-wrap: anywhere;
 }
 .leaderboard-sub {
   display: block;
@@ -364,6 +373,54 @@ tbody tr:last-child td { border-bottom: 0; }
   margin-top: 24px;
   color: var(--ink-faint);
   font-size: 0.92rem;
+}
+.markdown-doc {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.markdown-doc h1,
+.markdown-doc h2,
+.markdown-doc h3,
+.markdown-doc p,
+.markdown-doc li,
+.markdown-doc a,
+.markdown-doc code,
+.card p,
+.card li,
+.timeline-card p,
+.leaderboard-card strong,
+.leaderboard-card span,
+td,
+th {
+  overflow-wrap: anywhere;
+}
+.markdown-doc h1 {
+  margin: 0 0 12px;
+  font-size: clamp(2rem, 3vw, 3rem);
+  letter-spacing: -0.04em;
+}
+.markdown-doc h2 {
+  margin: 26px 0 10px;
+  font-size: clamp(1.25rem, 2vw, 1.8rem);
+}
+.markdown-doc h3 {
+  margin: 20px 0 8px;
+  font-size: 1.05rem;
+}
+.markdown-doc p,
+.markdown-doc li {
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+.markdown-doc ul {
+  margin: 0 0 14px;
+  padding-left: 20px;
+}
+.markdown-doc code {
+  padding: 2px 6px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ink);
 }
 @media (max-width: 960px) {
   .hero { grid-template-columns: 1fr; }
@@ -389,7 +446,7 @@ tbody tr:last-child td { border-bottom: 0; }
     
     <header class="topbar">
       <div class="brand"><span class="brand-mark"></span> AI Inference Investment Tracker</div>
-      <nav class="tabs"><a class='tab' href='index.html'>Home</a><a class='tab active' href='user-demand.html'>Inference Demand</a><a class='tab' href='tracker.md'>Tracker Notes</a><a class='tab' href='daily-summary.md'>Daily Summary</a></nav>
+      <nav class="tabs"><a class='tab' href='index.html'>Home</a><a class='tab active' href='user-demand.html'>Inference Demand</a><a class='tab' href='tracker.html'>Tracker Notes</a><a class='tab' href='daily-summary.html'>Daily Summary</a></nav>
     </header>
     
     

@@ -92,12 +92,43 @@ def test_build_inference_tracker_writes_html_and_markdown(settings):
     assert html_path.exists()
     assert md_path.exists()
     assert (settings.root_dir / "site" / "index.html").exists()
+    assert (settings.root_dir / "site" / "tracker.html").exists()
     assert (settings.root_dir / "site" / "tracker.md").exists()
     assert (settings.root_dir / "site" / "user-demand.html").exists()
     assert (settings.root_dir / "site" / "user-demand.md").exists()
     assert "Inference Tracker" in html_path.read_text()
     assert "user-demand.html" in html_path.read_text()
+    assert "tracker.html" in html_path.read_text()
     assert "Dashboard Snapshot" in html_path.read_text()
     assert "Research History" in html_path.read_text()
     assert "Power wins" in md_path.read_text()
     assert "Initial thesis" in md_path.read_text()
+
+
+def test_build_inference_tracker_writes_daily_summary_html(settings):
+    research_path = settings.data_dir / "inference_thesis_watchlist.json"
+    research_path.write_text(
+        json.dumps(
+            {
+                "title": "Inference Tracker",
+                "updated_on": "2026-03-29",
+                "stance": "Bullish",
+                "summary": "Testing tracker generation.",
+                "user_demand_framework": {},
+                "sources": [],
+                "areas": [],
+                "shortlist": [],
+                "predictions": [],
+                "history": [],
+            }
+        )
+    )
+    daily_summary_path = settings.outputs_dir / "inference_daily_summary.md"
+    daily_summary_path.write_text("# Daily Summary\n\n- Status: **Reviewed**\n")
+
+    build_inference_tracker(settings, research_path)
+
+    summary_html = (settings.root_dir / "site" / "daily-summary.html").read_text()
+    assert "Daily Summary" in summary_html
+    assert "Reviewed" in summary_html
+    assert "daily-summary.html" in summary_html

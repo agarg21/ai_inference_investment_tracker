@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import shutil
 from collections import Counter
 from html import escape
@@ -93,6 +94,9 @@ a:hover { text-decoration: underline; }
   border: 1px solid transparent;
   background: rgba(255, 255, 255, 0.04);
   font-weight: 600;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-align: center;
 }
 .tab.active {
   color: #07101e;
@@ -149,6 +153,8 @@ a:hover { text-decoration: underline; }
   color: var(--ink-soft);
   border: 1px solid var(--line);
   font-size: 0.92rem;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 .hero-side {
   display: grid;
@@ -207,6 +213,7 @@ a:hover { text-decoration: underline; }
   font-size: clamp(1.4rem, 3vw, 2.2rem);
   font-weight: 800;
   letter-spacing: -0.03em;
+  overflow-wrap: anywhere;
 }
 .muted { color: var(--ink-faint); }
 .section {
@@ -257,6 +264,8 @@ a:hover { text-decoration: underline; }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 .badge.core { color: var(--accent); }
 .badge.second_order { color: #cdb8ff; }
@@ -349,6 +358,7 @@ tbody tr:last-child td { border-bottom: 0; }
   text-align: right;
   color: var(--ink);
   font-weight: 700;
+  overflow-wrap: anywhere;
 }
 .leaderboard-sub {
   display: block;
@@ -368,6 +378,54 @@ tbody tr:last-child td { border-bottom: 0; }
   margin-top: 24px;
   color: var(--ink-faint);
   font-size: 0.92rem;
+}
+.markdown-doc {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.markdown-doc h1,
+.markdown-doc h2,
+.markdown-doc h3,
+.markdown-doc p,
+.markdown-doc li,
+.markdown-doc a,
+.markdown-doc code,
+.card p,
+.card li,
+.timeline-card p,
+.leaderboard-card strong,
+.leaderboard-card span,
+td,
+th {
+  overflow-wrap: anywhere;
+}
+.markdown-doc h1 {
+  margin: 0 0 12px;
+  font-size: clamp(2rem, 3vw, 3rem);
+  letter-spacing: -0.04em;
+}
+.markdown-doc h2 {
+  margin: 26px 0 10px;
+  font-size: clamp(1.25rem, 2vw, 1.8rem);
+}
+.markdown-doc h3 {
+  margin: 20px 0 8px;
+  font-size: 1.05rem;
+}
+.markdown-doc p,
+.markdown-doc li {
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+.markdown-doc ul {
+  margin: 0 0 14px;
+  padding-left: 20px;
+}
+.markdown-doc code {
+  padding: 2px 6px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ink);
 }
 @media (max-width: 960px) {
   .hero { grid-template-columns: 1fr; }
@@ -424,10 +482,10 @@ def _render_nav(active_tab: str, has_daily_summary: bool) -> str:
     tabs = [
         ("home", "index.html", "Home"),
         ("demand", "user-demand.html", "Inference Demand"),
-        ("tracker", "tracker.md", "Tracker Notes"),
+        ("tracker", "tracker.html", "Tracker Notes"),
     ]
     if has_daily_summary:
-        tabs.append(("summary", "daily-summary.md", "Daily Summary"))
+        tabs.append(("summary", "daily-summary.html", "Daily Summary"))
     links = []
     for key, href, label in tabs:
         class_name = "tab active" if key == active_tab else "tab"
@@ -468,6 +526,82 @@ def _render_links(links: list[dict[str, str]], *, compact: bool = False) -> str:
         for link in links
     )
     return f"<ul class='{class_name}'>{items}</ul>"
+
+
+def _format_inline_markdown(text: str) -> str:
+    escaped = escape(text)
+    escaped = re.sub(r"`([^`]+)`", r"<code>\1</code>", escaped)
+    escaped = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", escaped)
+    escaped = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"<a href='\2' target='_blank' rel='noreferrer'>\1</a>", escaped)
+    return escaped
+
+
+def _render_markdown_document(markdown: str, title: str, active_tab: str, *, has_daily_summary: bool) -> str:
+    blocks: list[str] = []
+    bullet_items: list[str] = []
+    paragraph_lines: list[str] = []
+
+    def flush_paragraph() -> None:
+        if paragraph_lines:
+            blocks.append(f"<p>{_format_inline_markdown(' '.join(paragraph_lines))}</p>")
+            paragraph_lines.clear()
+
+    def flush_list() -> None:
+        if bullet_items:
+            items = "".join(f"<li>{_format_inline_markdown(item)}</li>" for item in bullet_items)
+            blocks.append(f"<ul>{items}</ul>")
+            bullet_items.clear()
+
+    for raw_line in markdown.splitlines():
+        line = raw_line.rstrip()
+        stripped = line.strip()
+
+        if not stripped:
+            flush_paragraph()
+            flush_list()
+            continue
+
+        if stripped.startswith("### "):
+            flush_paragraph()
+            flush_list()
+            blocks.append(f"<h3>{_format_inline_markdown(stripped[4:])}</h3>")
+            continue
+
+        if stripped.startswith("## "):
+            flush_paragraph()
+            flush_list()
+            blocks.append(f"<h2>{_format_inline_markdown(stripped[3:])}</h2>")
+            continue
+
+        if stripped.startswith("# "):
+            flush_paragraph()
+            flush_list()
+            blocks.append(f"<h1>{_format_inline_markdown(stripped[2:])}</h1>")
+            continue
+
+        if stripped.startswith("- "):
+            flush_paragraph()
+            bullet_items.append(stripped[2:])
+            continue
+
+        paragraph_lines.append(stripped)
+
+    flush_paragraph()
+    flush_list()
+
+    content = f"""
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">Research Document</div>
+        <h1>{escape(title)}</h1>
+        <p>Readable HTML version for the published site.</p>
+      </div>
+      <section class="card markdown-doc">
+        {''.join(blocks)}
+      </section>
+    </section>
+    """
+    return _page_shell(title, active_tab, content, has_daily_summary=has_daily_summary)
 
 
 def _render_badge(value: str, extra_class: str = "") -> str:
@@ -1176,7 +1310,9 @@ def build_inference_tracker(settings: Settings, research_path: Path | None = Non
     site_dir.mkdir(parents=True, exist_ok=True)
 
     site_index_path = site_dir / "index.html"
+    site_tracker_html_path = site_dir / "tracker.html"
     site_tracker_md_path = site_dir / "tracker.md"
+    site_summary_html_path = site_dir / "daily-summary.html"
     site_summary_path = site_dir / "daily-summary.md"
     site_user_demand_html_path = site_dir / "user-demand.html"
     site_user_demand_md_path = site_dir / "user-demand.md"
@@ -1258,6 +1394,9 @@ def build_inference_tracker(settings: Settings, research_path: Path | None = Non
         md_lines.append("")
     markdown = "\n".join(md_lines)
     md_path.write_text(markdown)
+    site_tracker_html_path.write_text(
+        _render_markdown_document(markdown, "Tracker Notes", "tracker", has_daily_summary=has_daily_summary)
+    )
     site_tracker_md_path.write_text(markdown)
 
     demand_html, demand_markdown = _render_user_demand_page(tracker_data, demand_data, has_daily_summary=has_daily_summary)
@@ -1270,5 +1409,8 @@ def build_inference_tracker(settings: Settings, research_path: Path | None = Non
         shutil.copy2(demand_source_path, site_demand_data_path)
 
     if has_daily_summary:
+        site_summary_html_path.write_text(
+            _render_markdown_document(daily_summary_path.read_text(), "Daily Summary", "summary", has_daily_summary=has_daily_summary)
+        )
         shutil.copy2(daily_summary_path, site_summary_path)
     return html_path, md_path
