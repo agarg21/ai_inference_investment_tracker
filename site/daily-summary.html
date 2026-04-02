@@ -378,6 +378,31 @@ tbody tr:last-child td { border-bottom: 0; }
   max-width: 900px;
   margin: 0 auto;
 }
+.doc-hero {
+  margin-bottom: 22px;
+  padding: 28px 32px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background:
+    linear-gradient(135deg, rgba(14, 25, 53, 0.96), rgba(8, 13, 28, 0.98)),
+    linear-gradient(135deg, rgba(110, 231, 255, 0.12), rgba(124, 156, 255, 0.08));
+  box-shadow: var(--shadow);
+}
+.doc-hero h1 {
+  margin: 10px 0 12px;
+  font-size: clamp(2rem, 3vw, 3.25rem);
+  line-height: 1.03;
+  letter-spacing: -0.04em;
+}
+.doc-hero p {
+  margin: 0;
+  max-width: 70ch;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+.doc-shell {
+  padding: 28px 32px;
+}
 .markdown-doc h1,
 .markdown-doc h2,
 .markdown-doc h3,
@@ -430,6 +455,8 @@ th {
   .shell { width: min(100vw - 20px, 1240px); padding-top: 16px; }
   .topbar { border-radius: 24px; }
   .hero { padding: 24px 20px; }
+  .doc-hero,
+  .doc-shell { padding: 22px 20px; }
   .hero-stats,
   .stats-grid,
   .card-grid,
@@ -450,15 +477,13 @@ th {
     </header>
     
     
-    <section class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow">Research Document</div>
-        <h1>Daily Summary</h1>
-        <p>Readable HTML version for the published site.</p>
-      </div>
-      <section class="card markdown-doc">
-        <h1>AI Inference Daily Summary</h1><ul><li>Date: <strong>2026-04-01</strong></li><li>Status: <strong>Reviewed; no thesis or dashboard JSON changes</strong></li></ul><h2>What Changed</h2><ul><li>Re-reviewed the inference thesis and demand dashboard against current primary sources.</li><li>Left <code>data/inference_thesis_watchlist.json</code> and <code>data/inference_demand_dashboard.json</code> unchanged because the latest evidence was confirmatory rather than thesis-changing.</li></ul><h2>Current Read</h2><ul><li>Google still provides the clearest first-party demand tape: Alphabet said on February 4, 2026 that Gemini now processes more than 10 billion tokens per minute via direct API use, the Gemini app has more than 750 million monthly active users, and Gemini Enterprise has sold more than eight million paid seats.</li><li>Amazon&#x27;s February 5, 2026 Q4 release still supports elevated inference infrastructure demand: Amazon said 2026 capex should be about $200 billion, Bedrock is used by 100,000+ companies, and Trainium2 powers the majority of Bedrock inference.</li><li>Microsoft&#x27;s January 28, 2026 FY26 Q2 release remains consistent with the thesis that AI monetization is already large enough to matter at platform scale.</li><li>OpenRouter&#x27;s live rankings on April 1, 2026 still show heavy weekly token throughput across frontier and open models, but not enough structural change to warrant rewriting the dashboard snapshot.</li></ul><h2>Next Check</h2><ul><li>Watch for new hyperscaler earnings, capex guidance, and direct token-throughput disclosures.</li><li>Start persisting weekly OpenRouter snapshots if we want clean WoW and MoM demand-series math instead of point-in-time reads.</li></ul>
-      </section>
+    <section class="doc-hero">
+      <div class="eyebrow">Research Document</div>
+      <h1>Daily Summary</h1>
+      <p>Readable HTML version for the published site.</p>
+    </section>
+    <section class="card markdown-doc doc-shell">
+      <h1>AI Inference Daily Summary</h1><ul><li>Date: <strong>2026-04-01</strong></li><li>Status: <strong>Reviewed; no thesis or dashboard JSON changes</strong></li></ul><h2>What Changed</h2><ul><li>Re-reviewed the inference thesis and demand dashboard against current primary sources.</li><li>Left <code>data/inference_thesis_watchlist.json</code> and <code>data/inference_demand_dashboard.json</code> unchanged because the latest evidence was confirmatory rather than thesis-changing.</li></ul><h2>Current Read</h2><ul><li>Google still provides the clearest first-party demand tape: Alphabet said on February 4, 2026 that Gemini now processes more than 10 billion tokens per minute via direct API use, the Gemini app has more than 750 million monthly active users, and Gemini Enterprise has sold more than eight million paid seats.</li><li>Amazon&#x27;s February 5, 2026 Q4 release still supports elevated inference infrastructure demand: Amazon said 2026 capex should be about $200 billion, Bedrock is used by 100,000+ companies, and Trainium2 powers the majority of Bedrock inference.</li><li>Microsoft&#x27;s January 28, 2026 FY26 Q2 release remains consistent with the thesis that AI monetization is already large enough to matter at platform scale.</li><li>OpenRouter&#x27;s live rankings on April 1, 2026 still show heavy weekly token throughput across frontier and open models, but not enough structural change to warrant rewriting the dashboard snapshot.</li></ul><h2>Next Check</h2><ul><li>Watch for new hyperscaler earnings, capex guidance, and direct token-throughput disclosures.</li><li>Start persisting weekly OpenRouter snapshots if we want clean WoW and MoM demand-series math instead of point-in-time reads.</li></ul>
     </section>
     
   </main>

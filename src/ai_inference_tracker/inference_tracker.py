@@ -383,6 +383,31 @@ tbody tr:last-child td { border-bottom: 0; }
   max-width: 900px;
   margin: 0 auto;
 }
+.doc-hero {
+  margin-bottom: 22px;
+  padding: 28px 32px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background:
+    linear-gradient(135deg, rgba(14, 25, 53, 0.96), rgba(8, 13, 28, 0.98)),
+    linear-gradient(135deg, rgba(110, 231, 255, 0.12), rgba(124, 156, 255, 0.08));
+  box-shadow: var(--shadow);
+}
+.doc-hero h1 {
+  margin: 10px 0 12px;
+  font-size: clamp(2rem, 3vw, 3.25rem);
+  line-height: 1.03;
+  letter-spacing: -0.04em;
+}
+.doc-hero p {
+  margin: 0;
+  max-width: 70ch;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+.doc-shell {
+  padding: 28px 32px;
+}
 .markdown-doc h1,
 .markdown-doc h2,
 .markdown-doc h3,
@@ -435,6 +460,8 @@ th {
   .shell { width: min(100vw - 20px, 1240px); padding-top: 16px; }
   .topbar { border-radius: 24px; }
   .hero { padding: 24px 20px; }
+  .doc-hero,
+  .doc-shell { padding: 22px 20px; }
   .hero-stats,
   .stats-grid,
   .card-grid,
@@ -584,21 +611,23 @@ def _render_markdown_document(markdown: str, title: str, active_tab: str, *, has
             bullet_items.append(stripped[2:])
             continue
 
+        if line.startswith("  ") and bullet_items:
+            bullet_items[-1] += f" {stripped}"
+            continue
+
         paragraph_lines.append(stripped)
 
     flush_paragraph()
     flush_list()
 
     content = f"""
-    <section class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow">Research Document</div>
-        <h1>{escape(title)}</h1>
-        <p>Readable HTML version for the published site.</p>
-      </div>
-      <section class="card markdown-doc">
-        {''.join(blocks)}
-      </section>
+    <section class="doc-hero">
+      <div class="eyebrow">Research Document</div>
+      <h1>{escape(title)}</h1>
+      <p>Readable HTML version for the published site.</p>
+    </section>
+    <section class="card markdown-doc doc-shell">
+      {''.join(blocks)}
     </section>
     """
     return _page_shell(title, active_tab, content, has_daily_summary=has_daily_summary)
